@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  postgres:
+    container_name: loop-database
+    image: postgres
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - loop-database-volume:/var/lib/postgresql/data
+
+volumes:
+  loop-database-volume: {}
