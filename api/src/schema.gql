@@ -20,12 +20,17 @@ type Trip {
 }
 
 type Query {
-  getTrip(where: TripIDInput!): [Trip!]!
+  getTrip(where: TripIDInput!): Trip!
   filterTrips(searchString: String!): [Trip!]!
   getTrips: [Trip!]!
   getDeletedTrips: [Trip!]!
+  getAccount(where: AccountIDInput!): Account!
 }
 
 input TripIDInput {
+  id: ID!
+}
+
+input AccountIDInput {
   id: ID!
 }

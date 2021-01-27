@@ -1,7 +1,9 @@
 import {
+  Args,
   Field,
   ID,
   InputType,
+  Query,
   ResolveField,
   Resolver,
   Root,
@@ -29,5 +31,14 @@ export class AccountResolver {
         },
       })
       .trips();
+  }
+
+  @Query(() => Account)
+  async getAccount(@Args('where') where: AccountIDInput) {
+    return this.prismaService.account.findUnique({
+      where: {
+        id: where.id,
+      },
+    });
   }
 }

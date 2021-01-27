@@ -35,7 +35,7 @@ export class TripResolver {
       .owner();
   }
 
-  @Query(() => [Trip])
+  @Query(() => Trip)
   async getTrip(@Args('where') where: TripIDInput) {
     return this.prismaService.trip.findUnique({
       where: {
@@ -57,7 +57,7 @@ export class TripResolver {
   }
 
   @Query(() => [Trip])
-  async getTrips(@Context() ctx) {
+  async getTrips() {
     return this.prismaService.trip.findMany({
       where: {
         deleted: false,
