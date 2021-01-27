@@ -5,7 +5,7 @@ services:
     container_name: loop-database
     image: postgres
     environment:
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=loop
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
