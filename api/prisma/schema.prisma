@@ -14,15 +14,5 @@ model Account {
  id           Int      @default(autoincrement()) @id
  email        String      @unique
  name         String
- description  String?
- trips        Trip[]
-}
-
-model Trip {
- id           Int      @default(autoincrement()) @id
- title        String
- description  String?
- deleted      Boolean     @default(false)
- owner        Account     @relation(fields: [ownerId], references: [id])
- ownerId      Int
+ details      String?
 }

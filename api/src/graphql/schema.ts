@@ -1,7 +1,6 @@
-import { objectType, queryType, mutationType, makeSchema } from '@nexus/schema';
+import { queryType, makeSchema } from 'nexus';
 import { nexusPrisma } from 'nexus-plugin-prisma';
 import { join } from 'path';
-import { NexusPlugin } from '@nexus/schema/dist/plugin';
 
 const Query = queryType({
   definition(t) {
@@ -11,24 +10,22 @@ const Query = queryType({
 
 export const schema = makeSchema({
   types: [Query],
-  plugins: [
-    (nexusPrisma({ experimentalCRUD: true }) as unknown) as NexusPlugin,
-  ],
+  plugins: [nexusPrisma({ experimentalCRUD: true })],
   outputs: {
     typegen: join(process.cwd(), 'src/__generated/nexus-typegen.ts'),
     schema: join(process.cwd(), 'src/__generated/schema.gql'),
   },
-  typegenAutoConfig: {
-    contextType: 'Context.Context',
-    sources: [
+  contextType: {
+    module: join(process.cwd(), 'src/graphql/context.ts'),
+    export: 'Context',
+  },
+  sourceTypes: {
+    modules: [
       {
-        source: '@prisma/client',
+        module: '@prisma/client',
         alias: 'prisma',
-      },
-      {
-        source: join(process.cwd(), 'src/graphql/context.ts'),
-        alias: 'Context',
       },
     ],
   },
+  shouldExitAfterGenerateArtifacts: false,
 });
