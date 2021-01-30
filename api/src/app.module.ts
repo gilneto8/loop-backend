@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { PrismaService } from './prisma.service';
 import { createContext } from './graphql/context';
 import { schema } from './graphql/schema';
 
@@ -15,6 +14,6 @@ import { schema } from './graphql/schema';
     }),
   ],
   controllers: [],
-  providers: [PrismaService],
+  providers: [],
 })
 export class AppModule {}
