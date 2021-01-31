@@ -3,7 +3,7 @@
 /node_modules
 
 # generated on start
-src/__generated
+__generated
 
 # Logs
 logs

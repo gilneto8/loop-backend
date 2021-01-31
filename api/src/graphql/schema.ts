@@ -18,8 +18,8 @@ export const schema = makeSchema({
     nexusPrisma({ experimentalCRUD: true, prismaClient: createContext }),
   ],
   outputs: {
-    typegen: join(process.cwd(), 'src/__generated/nexus-typegen.d.ts'),
-    schema: join(process.cwd(), 'src/__generated/schema.gql'),
+    typegen: join(process.cwd(), '__generated/nexus-typegen.d.ts'),
+    schema: join(process.cwd(), '__generated/schema.gql'),
   },
   contextType: {
     module: join(process.cwd(), 'src/graphql/context.ts'),
