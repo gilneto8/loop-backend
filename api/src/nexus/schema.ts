@@ -29,7 +29,7 @@ export const schema = makeSchema({
     schema: join(process.cwd(), '__generated/schema.gql'),
   },
   contextType: {
-    module: join(process.cwd(), 'src/graphql/context.ts'),
+    module: join(process.cwd(), 'src/nexus/context.ts'),
     export: 'Context',
   },
   sourceTypes: {
