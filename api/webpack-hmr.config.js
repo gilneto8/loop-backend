@@ -15,6 +15,9 @@ module.exports = function (options, nodeArgs) {
 
   return {
     ...options,
+    optimization: {
+      namedModules: true,
+    },
     devtool: 'inline-source-map',
     entry: [HOT_ENTRY, options.entry],
     watch: true,

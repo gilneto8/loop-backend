@@ -50,7 +50,7 @@ bootstrap()
         console.log('Update successful');
         // TODO reload app to force plugin to run
       } catch (err) {
-        throw new Error(err.message);
+        throw err;
       }
     });
   });

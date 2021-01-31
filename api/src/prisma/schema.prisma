@@ -21,5 +21,5 @@ model Trip {
   id          Int         @default(autoincrement()) @id
   destination String      @unique
   baldroegas  Int         @default(2)
-  detail      String      @default("text 101")
+  detail      String      @default("text 907")
 }
