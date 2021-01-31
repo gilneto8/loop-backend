@@ -33,8 +33,8 @@ $ npm run test:cov
 ## Migrations
 
 ```bash
-# create migration
-$ npx prisma migrate dev --name <name> --preview-feature
+# create first migration
+$ npx prisma migrate dev --name init --schema=src/prisma/schema.prisma --preview-feature
 
 # update prisma client
 $ npx prisma generate
