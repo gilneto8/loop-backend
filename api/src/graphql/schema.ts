@@ -2,15 +2,15 @@ import { queryType, makeSchema, objectType } from 'nexus';
 import { nexusPrisma } from 'nexus-plugin-prisma';
 import { join } from 'path';
 import { createContext } from './context';
-import NexusGenCustomOutputProperties from '../__generated/nexus-typegen';
-import { ObjectDefinitionBlock } from 'nexus/dist/definitions/objectType';
 
 const Query = queryType({
-  definition(t: ObjectDefinitionBlock<'Query'>) {
+  definition(t) {
     t.string('hello', { resolve: () => 'hello world' });
     t.string('goodbye', { resolve: () => 'goodbye world' });
   },
 });
+
+// TODO with don't the types get recognized? something wrong with typegen output destination?
 
 export const schema = makeSchema({
   types: [Query],

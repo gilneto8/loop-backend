@@ -24,7 +24,7 @@ module.exports = function (options, nodeArgs) {
     plugins: [
       ...options.plugins,
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.WatchIgnorePlugin([/\.js$/, /\.d\.ts$/, /\.prisma$/]),
+      new webpack.WatchIgnorePlugin([/\.js$/, /\.d\.ts$/]),
       new StartServerPlugin({
         name: options.output.filename,
         nodeArgs,

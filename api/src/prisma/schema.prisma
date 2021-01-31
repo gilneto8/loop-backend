@@ -20,5 +20,6 @@ model Account {
 model Trip {
   id          Int         @default(autoincrement()) @id
   destination String      @unique
-  pal         Int
+  baldroegas  Int         @default(2)
+  detail      String      @default("text 101")
 }
