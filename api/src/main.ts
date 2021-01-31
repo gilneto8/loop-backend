@@ -4,6 +4,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { join } from 'path';
 import { execSync } from 'child_process';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 const fs = require('fs');
 
 type ModuleHotData = {
@@ -24,6 +25,15 @@ async function bootstrap() {
   fs.unwatchFile(schemaPath);
 
   const app = await NestFactory.create(AppModule);
+
+  const config = new DocumentBuilder()
+    .setTitle('Loop API')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, config, {});
+
+  SwaggerModule.setup('api-docs', app, document);
+
   await app.listen(3000);
 
   if (module.hot) {
