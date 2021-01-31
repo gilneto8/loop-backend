@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { createContext } from './graphql/context';
-import { schema } from './graphql/schema';
+import { createContext } from './nexus/context';
+import { schema } from './nexus/schema';
 
 @Module({
   imports: [
