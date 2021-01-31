@@ -2,6 +2,7 @@ import { queryType, makeSchema, objectType } from 'nexus';
 import { nexusPrisma } from 'nexus-plugin-prisma';
 import { join } from 'path';
 import { createContext } from './context';
+import { ObjectDefinitionBlock } from 'nexus/dist/definitions/objectType';
 
 const Query = queryType({
   definition(t) {
@@ -10,7 +11,13 @@ const Query = queryType({
   },
 });
 
-// TODO with don't the types get recognized? something wrong with typegen output destination?
+/*const obj = objectType<'Trip'>({
+  name: 'Trip',
+  definition(t: ObjectDefinitionBlock<'Trip'>) {
+    t.model.id();
+    t.model.destination();
+  },
+});*/
 
 export const schema = makeSchema({
   types: [Query],
