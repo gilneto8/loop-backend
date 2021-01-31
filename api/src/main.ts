@@ -34,6 +34,8 @@ async function bootstrap() {
 
   SwaggerModule.setup('api-docs', app, document);
 
+  app.enableShutdownHooks();
+
   await app.listen(3000);
 
   if (module.hot) {
