@@ -34,6 +34,7 @@
     "apollo-server-express": "^2.19.2",
     "graphql": "^15.5.0",
     "graphql-tools": "^7.0.2",
+    "helmet": "^4.4.1",
     "nexus": "^1.0.0",
     "nexus-plugin-prisma": "^0.28.0",
     "pg": "^8.5.1",

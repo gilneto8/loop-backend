@@ -1,11 +1,8 @@
 import 'source-map-support/register';
-
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { join } from 'path';
 import { execSync } from 'child_process';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-const fs = require('fs');
+import { createApp } from './main.create';
+import { watch } from './utils/file-utils';
+import { getAutoMigrationCommand } from './utils/prisma/commands';
 
 type ModuleHotData = {
   closingPromise?: Promise<unknown>;
@@ -13,7 +10,7 @@ type ModuleHotData = {
 
 declare const module: any;
 
-const schemaPath = `${process.env.PRISMA_PATH}/${process.env.PRISMA_SCHEMA_NAME}`;
+const schemaPath = process.env.SCHEMA_PATH as string;
 
 async function bootstrap() {
   const closingPromise = (module.hot?.data as ModuleHotData | undefined)
@@ -22,20 +19,7 @@ async function bootstrap() {
     await closingPromise;
   }
 
-  fs.unwatchFile(schemaPath);
-
-  const app = await NestFactory.create(AppModule);
-
-  const config = new DocumentBuilder()
-    .setTitle('Loop API')
-    .setVersion('1.0')
-    .build();
-  const document = SwaggerModule.createDocument(app, config, {});
-
-  SwaggerModule.setup('api-docs', app, document);
-
-  app.enableShutdownHooks();
-
+  const app = await createApp();
   await app.listen(3000);
 
   if (module.hot) {
@@ -52,17 +36,7 @@ bootstrap()
     process.exit(1);
   })
   .finally(() => {
-    fs.watchFile(join(process.cwd(), schemaPath), () => {
-      console.log(`Changes made to "${schemaPath}", updating`);
-      try {
-        execSync(
-          `npx prisma migrate dev --name auto-generated --schema=${schemaPath} --preview-feature`,
-          { stdio: 'inherit' },
-        );
-        console.log('Update successful');
-        // TODO reload app to force plugin to run
-      } catch (err) {
-        throw err;
-      }
-    });
+    watch(schemaPath, () =>
+      execSync(getAutoMigrationCommand(schemaPath), { stdio: 'inherit' }),
+    );
   });
