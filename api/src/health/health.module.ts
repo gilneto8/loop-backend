@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TerminusModule } from '@nestjs/terminus';
-import { DNSHealthController } from './health.dns.controller';
-import { PostgresHealthController } from './health.postgres.controller';
+import { HealthController } from './health.controller';
+import { PostgresHealthIndicator } from './indicators/database.service';
 
 @Module({
   imports: [TerminusModule],
-  controllers: [],
-  providers: [DNSHealthController, PostgresHealthController],
+  controllers: [HealthController],
+  providers: [PostgresHealthIndicator],
 })
 export class HealthModule {}

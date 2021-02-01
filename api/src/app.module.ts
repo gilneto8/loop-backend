@@ -13,7 +13,7 @@ import { HealthModule } from './health/health.module';
       debug: true,
       tracing: true,
     }),
-    /*HealthModule,*/
+    HealthModule,
   ],
   controllers: [],
   providers: [],

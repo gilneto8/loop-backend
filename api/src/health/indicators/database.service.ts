@@ -7,19 +7,16 @@ import {
 import { Client } from 'pg';
 
 @Injectable()
-export class PostgresHealthCheckService extends HealthIndicator {
-  async isHealthy(): Promise<HealthIndicatorResult> {
+export class PostgresHealthIndicator extends HealthIndicator {
+  async check(key: string): Promise<HealthIndicatorResult> {
     const connectionString = process.env.DATABASE_URL;
     const client = new Client({ connectionString });
     try {
       await client.connect();
       await client.end();
-      return this.getStatus('pg', true);
+      return this.getStatus(key, true);
     } catch (err) {
-      throw new HealthCheckError(
-        'Postgres failed',
-        this.getStatus('pg', false),
-      );
+      throw new HealthCheckError('Postgres failed', this.getStatus(key, false));
     }
   }
 }
