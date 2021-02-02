@@ -5,7 +5,7 @@ import {
   HealthCheckService,
 } from '@nestjs/terminus';
 import { PostgresHealthIndicator } from './indicators/database.service';
-import { Public } from '../../auth/decorators/public-route';
+import { Public } from '../decorators/public-route';
 
 @Controller('health')
 export class HealthController {
