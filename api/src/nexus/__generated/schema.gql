@@ -7,12 +7,14 @@ type Account {
   email: String
   id: Int
   name: String
+  password: String
 }
 
 input AccountCreateInput {
   details: String
   email: String!
   name: String!
+  password: String!
 }
 
 input AccountOrderByInput {
@@ -20,12 +22,14 @@ input AccountOrderByInput {
   email: SortOrder
   id: SortOrder
   name: SortOrder
+  password: SortOrder
 }
 
 input AccountUpdateInput {
   details: NullableStringFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
 }
 
 input AccountWhereInput {
@@ -36,6 +40,7 @@ input AccountWhereInput {
   email: StringFilter
   id: IntFilter
   name: StringFilter
+  password: StringFilter
 }
 
 input AccountWhereUniqueInput {

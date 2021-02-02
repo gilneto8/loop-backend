@@ -23,17 +23,20 @@ export interface NexusGenInputs {
     details?: string | null; // String
     email: string; // String!
     name: string; // String!
+    password: string; // String!
   }
   AccountOrderByInput: { // input type
     details?: NexusGenEnums['SortOrder'] | null; // SortOrder
     email?: NexusGenEnums['SortOrder'] | null; // SortOrder
     id?: NexusGenEnums['SortOrder'] | null; // SortOrder
     name?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    password?: NexusGenEnums['SortOrder'] | null; // SortOrder
   }
   AccountUpdateInput: { // input type
     details?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     email?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
   }
   AccountWhereInput: { // input type
     AND?: NexusGenInputs['AccountWhereInput'][] | null; // [AccountWhereInput!]
@@ -43,6 +46,7 @@ export interface NexusGenInputs {
     email?: NexusGenInputs['StringFilter'] | null; // StringFilter
     id?: NexusGenInputs['IntFilter'] | null; // IntFilter
     name?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    password?: NexusGenInputs['StringFilter'] | null; // StringFilter
   }
   AccountWhereUniqueInput: { // input type
     email?: string | null; // String
@@ -149,6 +153,7 @@ export interface NexusGenObjects {
     email?: string | null; // String
     id?: number | null; // Int
     name?: string | null; // String
+    password?: string | null; // String
   }
   Mutation: {};
   Query: {};
@@ -170,6 +175,7 @@ export interface NexusGenFieldTypes {
     email: string | null; // String
     id: number | null; // Int
     name: string | null; // String
+    password: string | null; // String
   }
   Mutation: { // field return type
     createOneAccount: NexusGenRootTypes['Account'] | null; // Account
@@ -190,6 +196,7 @@ export interface NexusGenFieldTypeNames {
     email: 'String'
     id: 'Int'
     name: 'String'
+    password: 'String'
   }
   Mutation: { // field return type name
     createOneAccount: 'Account'

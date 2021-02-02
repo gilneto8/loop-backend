@@ -9,6 +9,7 @@ const Account = objectType<'Account'>({
     t.model.name();
     t.model.email();
     t.model.details();
+    t.model.password();
   },
 });
 
