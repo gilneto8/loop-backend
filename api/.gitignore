@@ -2,9 +2,6 @@
 /dist
 /node_modules
 
-# generated on start
-__generated
-
 # Logs
 logs
 *.log

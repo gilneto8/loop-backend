@@ -37,6 +37,6 @@ $ npm run test:cov
 $ npx prisma migrate dev --name init --schema=src/prisma/schema.prisma --preview-feature
 
 # update prisma client
-$ npx prisma generate
+$ npx prisma generate --schema=src/prisma/schema.prisma
 
 ```

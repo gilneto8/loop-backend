@@ -19,5 +19,5 @@
     "forceConsistentCasingInFileNames": true
   },
   "exclude": ["node_modules", "test", "dist", "**/*spec.ts"],
-  "include": ["src", "__generated"]
+  "include": ["src"]
 }
