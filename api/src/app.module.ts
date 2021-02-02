@@ -3,6 +3,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { createContext } from './nexus/context';
 import { schema } from './nexus/schema';
 import { HealthModule } from './health/health.module';
+import { AccountModule } from './account/account.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { HealthModule } from './health/health.module';
       tracing: true,
     }),
     HealthModule,
+    AccountModule,
   ],
   controllers: [],
   providers: [],

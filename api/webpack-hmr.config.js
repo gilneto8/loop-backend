@@ -7,11 +7,9 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const HOT_ENTRY = 'webpack/hot/poll?100';
 
 module.exports = function (options, nodeArgs) {
-  const _plugins = options.plugins.filter(
+  options.plugins = options.plugins.filter(
     (plugin) => !(plugin instanceof ForkTsCheckerWebpackPlugin),
   );
-
-  options.plugins = _plugins;
 
   return {
     ...options,
