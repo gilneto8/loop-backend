@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../internals/prisma/prisma.service';
-import { TCreateAccountParams, TGetAccountParams } from './account.types';
+import createAccountDto from './dtos/createAccount.dto';
 
 @Injectable()
 export class AccountService {
@@ -14,7 +14,7 @@ export class AccountService {
     return this.prisma.account.findUnique({ where: { id } });
   }
 
-  create(params: TCreateAccountParams) {
+  create(params: createAccountDto) {
     return this.prisma.account.create({ data: { ...params } });
   }
 }
