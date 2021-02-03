@@ -1,18 +1,32 @@
-import { Controller, Get, Post, Query, Request } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  ParseIntPipe,
+  Post,
+  Request,
+} from '@nestjs/common';
 import { AccountService } from './account.service';
-import { TGetAccountParams, TCreate } from './account.types';
+import { TCreateAccountParams, TGetAccountParams } from './account.types';
 
 @Controller('accounts')
 export class AccountController {
   constructor(private accountService: AccountService) {}
 
-  @Get('find')
-  getAccount(@Query() params: TGetAccountParams) {
-    return this.accountService.get(params);
+  @Get(':id')
+  getAccount(
+    @Param(
+      'id',
+      new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
+    )
+    id: number,
+  ) {
+    return this.accountService.get(id);
   }
 
   @Post()
-  createAccount(@Request() req: { body: TCreate }) {
+  createAccount(@Request() req: { body: TCreateAccountParams }) {
     return this.accountService.create(req.body);
   }
 }
