@@ -5,6 +5,7 @@ import {
   HealthCheckService,
 } from '@nestjs/terminus';
 import { PostgresHealthIndicator } from './indicators/database.service';
+import { Public } from '../decorators/public-route';
 
 @Controller('health')
 export class HealthController {
@@ -14,6 +15,7 @@ export class HealthController {
     private pg: PostgresHealthIndicator,
   ) {}
 
+  @Public()
   @Get()
   @HealthCheck()
   check() {

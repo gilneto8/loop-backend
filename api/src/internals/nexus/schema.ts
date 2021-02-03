@@ -41,7 +41,7 @@ export const schema = makeSchema({
     schema: join(process.cwd(), 'src/nexus/__generated/schema.gql'),
   },
   contextType: {
-    module: join(process.cwd(), 'src/nexus/context.ts'),
+    module: join(process.cwd(), 'src/internals/prisma/prisma.context.ts'),
     export: 'Context',
   },
   sourceTypes: {
