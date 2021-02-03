@@ -4,7 +4,7 @@
  */
 
 
-import { Context } from "./../context"
+import { Context } from "./../../prisma/prisma.context"
 
 
 declare global {

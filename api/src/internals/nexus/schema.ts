@@ -37,8 +37,11 @@ export const schema = makeSchema({
   types: [Account, Query, Mutation],
   plugins: [nexusPrisma({ experimentalCRUD: true })],
   outputs: {
-    typegen: join(process.cwd(), 'src/nexus/__generated/nexus-typegen.d.ts'),
-    schema: join(process.cwd(), 'src/nexus/__generated/schema.gql'),
+    typegen: join(
+      process.cwd(),
+      'src/internals/nexus/__generated/nexus-typegen.d.ts',
+    ),
+    schema: join(process.cwd(), 'src/internals/nexus/__generated/schema.gql'),
   },
   contextType: {
     module: join(process.cwd(), 'src/internals/prisma/prisma.context.ts'),

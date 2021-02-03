@@ -2,18 +2,18 @@ import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './strategies/local/local.strategy';
-import { UsersModule } from '../../users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { JwtStrategy } from './strategies/jwt/jwt.strategy';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './strategies/jwt/jwt.guard';
-
-// TODO USERS ONLY FOR TESTING PURPOSES
+import { AccountModule } from '../../account/account.module';
+import { AccountService } from '../../account/account.service';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Module({
   imports: [
-    UsersModule,
+    AccountModule,
     PassportModule,
     JwtModule.register({
       secret: jwtConstants.secret,
@@ -22,6 +22,8 @@ import { JwtAuthGuard } from './strategies/jwt/jwt.guard';
   ],
   providers: [
     AuthService,
+    AccountService,
+    PrismaService,
     LocalStrategy,
     JwtStrategy,
     {
