@@ -1,28 +1,61 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from '../../internals/prisma/prisma.service';
 import createAccountDto from './dtos/createAccount.dto';
 import updateAccountDto from './dtos/updateAccount.dto';
+import { ErrorMessages } from '../../utils/enums/error-messages';
+import { PostgresErrorCodes } from '../../utils/enums/postgres-error-codes';
 
 @Injectable()
 export class AccountService {
   constructor(private prisma: PrismaService) {}
 
   validate(email: string) {
-    return this.prisma.account.findUnique({ where: { email } });
+    try {
+      return this.prisma.account.findUnique({ where: { email } });
+    } catch (err) {
+      throw new HttpException(
+        ErrorMessages.UNKNOWN,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
-  get(id: number) {
-    return this.prisma.account.findUnique({ where: { id } });
+  async get(id: number) {
+    const account = await this.prisma.account.findUnique({ where: { id } });
+    if (!account)
+      throw new HttpException(ErrorMessages.ID_NOT_FOUND, HttpStatus.NOT_FOUND);
+    const { password, ...result } = account;
+    return result;
   }
 
   create(params: createAccountDto) {
-    return this.prisma.account.create({ data: { ...params } });
+    try {
+      return this.prisma.account.create({ data: { ...params } });
+    } catch (err) {
+      if (err?.code === PostgresErrorCodes.UniqueViolation) {
+        throw new HttpException(
+          ErrorMessages.EMAIL_ALREADY_EXISTS,
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+      throw new HttpException(
+        ErrorMessages.UNKNOWN,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   update(id: number, params: updateAccountDto) {
-    return this.prisma.account.update({
-      data: params,
-      where: { id },
-    });
+    try {
+      return this.prisma.account.update({
+        data: params,
+        where: { id },
+      });
+    } catch (err) {
+      throw new HttpException(
+        ErrorMessages.UNKNOWN,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 }

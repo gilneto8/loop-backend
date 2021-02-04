@@ -9,7 +9,6 @@ import {
   Request,
 } from '@nestjs/common';
 import { AccountService } from './account.service';
-import createAccountDto from './dtos/createAccount.dto';
 import getAccountDto from './dtos/getAccount.dto';
 import { AccountEntity } from '../../internals/decorators/account-entity';
 import updateAccountDto from './dtos/updateAccount.dto';
@@ -25,15 +24,8 @@ export class AccountController {
       new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
     )
     id: number,
-  ): Promise<getAccountDto | null> {
+  ) {
     return this.accountService.get(id);
-  }
-
-  @Post()
-  createAccount(
-    @Request() req: { body: createAccountDto },
-  ): Promise<getAccountDto> {
-    return this.accountService.create(req.body);
   }
 
   @Put()

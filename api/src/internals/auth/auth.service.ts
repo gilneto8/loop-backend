@@ -1,7 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AccountService } from '../../modules/account/account.service';
 import getAccountDto from '../../modules/account/dtos/getAccount.dto';
+import createAccountDto from '../../modules/account/dtos/createAccount.dto';
+import { PostgresErrorCodes } from '../../utils/enums/postgres-error-codes';
+import { ErrorMessages } from '../../utils/enums/error-messages';
+const argon2 = require('argon2');
 
 @Injectable()
 export class AuthService {
@@ -15,16 +19,49 @@ export class AuthService {
     password: string,
   ): Promise<getAccountDto | null> {
     const account = await this.accountService.validate(email);
-    if (account && account.password === password) {
-      const { password, ...result } = account;
-      return result;
+    if (!account)
+      throw new HttpException(
+        ErrorMessages.WRONG_CREDENTIALS,
+        HttpStatus.BAD_REQUEST,
+      );
+    try {
+      if (await argon2.verify(account.password, password)) {
+        const { password, ...result } = account;
+        return result;
+      }
+    } catch (err) {
+      new HttpException(
+        ErrorMessages.WRONG_CREDENTIALS,
+        HttpStatus.BAD_REQUEST,
+      );
     }
     return null;
   }
 
   async login(account: getAccountDto) {
-    return {
-      access_token: this.jwtService.sign(account),
-    };
+    return { access_token: this.jwtService.sign(account) };
+  }
+
+  async register(accountData: createAccountDto) {
+    const hashedPass = await argon2.hash(accountData.password);
+    try {
+      const newAccount = await this.accountService.create({
+        ...accountData,
+        password: hashedPass,
+      });
+      const { password, ...result } = newAccount;
+      return result;
+    } catch (err) {
+      if (err?.code === PostgresErrorCodes.UniqueViolation) {
+        throw new HttpException(
+          ErrorMessages.EMAIL_ALREADY_EXISTS,
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+      throw new HttpException(
+        ErrorMessages.UNKNOWN,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 }

@@ -4,6 +4,7 @@ import { Public } from './internals/decorators/public-route';
 import { LocalAuthGuard } from './internals/auth/strategies/local/local.guard';
 import { TLoginCredentials } from './internals/auth/auth.types';
 import getAccountDto from './modules/account/dtos/getAccount.dto';
+import createAccountDto from './modules/account/dtos/createAccount.dto';
 
 @Controller()
 export class AppController {
@@ -16,5 +17,13 @@ export class AppController {
     @Request() req: { body: TLoginCredentials; user: getAccountDto },
   ) {
     return this.authService.login(req.user);
+  }
+
+  @Public()
+  @Post('register')
+  async register(
+    @Request() req: { body: createAccountDto },
+  ): Promise<getAccountDto> {
+    return this.authService.register(req.body);
   }
 }
