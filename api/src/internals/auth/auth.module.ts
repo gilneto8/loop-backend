@@ -28,8 +28,9 @@ import { PrismaService } from '../prisma/prisma.service';
     JwtStrategy,
     {
       provide: APP_GUARD,
-      useClass: JwtAuthGuard,
+      useExisting: JwtAuthGuard,
     },
+    JwtAuthGuard,
   ],
   exports: [AuthService],
 })
