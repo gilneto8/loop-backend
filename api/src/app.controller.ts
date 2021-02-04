@@ -3,6 +3,7 @@ import { AuthService } from './internals/auth/auth.service';
 import { Public } from './internals/decorators/public-route';
 import { LocalAuthGuard } from './internals/auth/strategies/local/local.guard';
 import { TLoginCredentials } from './internals/auth/auth.types';
+import getAccountDto from './modules/account/dtos/getAccount.dto';
 
 @Controller()
 export class AppController {
@@ -11,7 +12,9 @@ export class AppController {
   @Public()
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(@Request() req: { body: TLoginCredentials }) {
-    return this.authService.login(req.body);
+  async login(
+    @Request() req: { body: TLoginCredentials; user: getAccountDto },
+  ) {
+    return this.authService.login(req.user);
   }
 }

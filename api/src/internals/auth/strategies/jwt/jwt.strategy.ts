@@ -2,6 +2,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { jwtConstants } from '../../constants';
+import getAccountDto from '../../../../modules/account/dtos/getAccount.dto';
 
 type TJwtValidationParams = {
   sub: string;
@@ -18,7 +19,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: TJwtValidationParams) {
-    return { userId: payload.sub, email: payload.email };
+  async validate(payload: getAccountDto) {
+    return payload;
   }
 }

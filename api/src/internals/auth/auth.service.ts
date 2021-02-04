@@ -10,7 +10,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async validate(
+  async validateAccount(
     email: string,
     password: string,
   ): Promise<getAccountDto | null> {
@@ -23,9 +23,8 @@ export class AuthService {
   }
 
   async login(account: getAccountDto) {
-    const payload = { email: account.email, sub: account.id };
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: this.jwtService.sign(account),
     };
   }
 }
