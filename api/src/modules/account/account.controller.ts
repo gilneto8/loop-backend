@@ -7,17 +7,20 @@ import {
   Post,
   Put,
   Request,
+  UseInterceptors,
 } from '@nestjs/common';
 import { AccountService } from './account.service';
 import getAccountDto from './dtos/getAccount.dto';
 import { AccountEntity } from '../../internals/decorators/account-entity';
 import updateAccountDto from './dtos/updateAccount.dto';
+import { RemovePasswordInterceptor } from '../../internals/interceptors/remove-password';
 
 @Controller('accounts')
 export class AccountController {
   constructor(private accountService: AccountService) {}
 
   @Get(':id')
+  @UseInterceptors(RemovePasswordInterceptor)
   getAccount(
     @Param(
       'id',
@@ -29,6 +32,7 @@ export class AccountController {
   }
 
   @Put()
+  @UseInterceptors(RemovePasswordInterceptor)
   updateAccount(
     @AccountEntity() account: getAccountDto,
     @Request() req: { body: updateAccountDto },

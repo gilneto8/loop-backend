@@ -5,6 +5,7 @@ import getAccountDto from '../../modules/account/dtos/getAccount.dto';
 import createAccountDto from '../../modules/account/dtos/createAccount.dto';
 import { PostgresErrorCodes } from '../../utils/enums/postgres-error-codes';
 import { ErrorMessages } from '../../utils/enums/error-messages';
+
 const argon2 = require('argon2');
 
 @Injectable()
@@ -26,6 +27,7 @@ export class AuthService {
       );
     try {
       if (await argon2.verify(account.password, password)) {
+        // don't set password inside `user` field
         const { password, ...result } = account;
         return result;
       }
@@ -45,12 +47,10 @@ export class AuthService {
   async register(accountData: createAccountDto) {
     const hashedPass = await argon2.hash(accountData.password);
     try {
-      const newAccount = await this.accountService.create({
+      return await this.accountService.create({
         ...accountData,
         password: hashedPass,
       });
-      const { password, ...result } = newAccount;
-      return result;
     } catch (err) {
       if (err?.code === PostgresErrorCodes.UniqueViolation) {
         throw new HttpException(

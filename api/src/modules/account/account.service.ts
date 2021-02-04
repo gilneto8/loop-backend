@@ -24,8 +24,7 @@ export class AccountService {
     const account = await this.prisma.account.findUnique({ where: { id } });
     if (!account)
       throw new HttpException(ErrorMessages.ID_NOT_FOUND, HttpStatus.NOT_FOUND);
-    const { password, ...result } = account;
-    return result;
+    return account;
   }
 
   create(params: createAccountDto) {
