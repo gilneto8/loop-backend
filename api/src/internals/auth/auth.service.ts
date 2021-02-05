@@ -23,7 +23,7 @@ export class AuthService {
     if (!account)
       throw new HttpException(
         ErrorMessages.WRONG_CREDENTIALS,
-        HttpStatus.BAD_REQUEST,
+        HttpStatus.UNAUTHORIZED,
       );
     try {
       if (await argon2.verify(account.password, password)) {
@@ -34,7 +34,7 @@ export class AuthService {
     } catch (err) {
       new HttpException(
         ErrorMessages.WRONG_CREDENTIALS,
-        HttpStatus.BAD_REQUEST,
+        HttpStatus.UNAUTHORIZED,
       );
     }
     return null;
@@ -55,7 +55,7 @@ export class AuthService {
       if (err?.code === PostgresErrorCodes.UniqueViolation) {
         throw new HttpException(
           ErrorMessages.EMAIL_ALREADY_EXISTS,
-          HttpStatus.BAD_REQUEST,
+          HttpStatus.CONFLICT,
         );
       }
       throw new HttpException(

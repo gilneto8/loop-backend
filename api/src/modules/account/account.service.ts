@@ -34,7 +34,7 @@ export class AccountService {
       if (err?.code === PostgresErrorCodes.UniqueViolation) {
         throw new HttpException(
           ErrorMessages.EMAIL_ALREADY_EXISTS,
-          HttpStatus.BAD_REQUEST,
+          HttpStatus.CONFLICT,
         );
       }
       throw new HttpException(
