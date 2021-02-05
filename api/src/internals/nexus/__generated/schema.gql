@@ -3,49 +3,140 @@
 
 
 type Account {
+  createdAt: DateTime
   details: String
   email: String
   id: Int
   name: String
   password: String
+  trips(after: TripWhereUniqueInput, before: TripWhereUniqueInput, first: Int, last: Int, where: AccountTripsWhereInput): [Trip!]!
+  updatedAt: DateTime
 }
 
 input AccountCreateInput {
+  createdAt: DateTime
   details: String
   email: String!
   name: String!
   password: String!
+  trips: TripCreateNestedManyWithoutOwnerInput
+  updatedAt: DateTime
+}
+
+input AccountCreateNestedOneWithoutTripsInput {
+  connect: AccountWhereUniqueInput
+  connectOrCreate: AccountCreateOrConnectWithouttripsInput
+  create: AccountCreateWithoutTripsInput
+}
+
+input AccountCreateOrConnectWithouttripsInput {
+  create: AccountCreateWithoutTripsInput!
+  where: AccountWhereUniqueInput!
+}
+
+input AccountCreateWithoutTripsInput {
+  createdAt: DateTime
+  details: String
+  email: String!
+  name: String!
+  password: String!
+  updatedAt: DateTime
 }
 
 input AccountOrderByInput {
+  createdAt: SortOrder
   details: SortOrder
   email: SortOrder
   id: SortOrder
   name: SortOrder
   password: SortOrder
+  updatedAt: SortOrder
+}
+
+input AccountTripsWhereInput {
+  createdAt: DateTimeFilter
+  name: StringFilter
 }
 
 input AccountUpdateInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
   details: NullableStringFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
+  trips: TripUpdateManyWithoutOwnerInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input AccountUpdateOneWithoutTripsInput {
+  connect: AccountWhereUniqueInput
+  connectOrCreate: AccountCreateOrConnectWithouttripsInput
+  create: AccountCreateWithoutTripsInput
+  delete: Boolean
+  disconnect: Boolean
+  update: AccountUpdateWithoutTripsInput
+  upsert: AccountUpsertWithoutTripsInput
+}
+
+input AccountUpdateWithoutTripsInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  details: NullableStringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input AccountUpsertWithoutTripsInput {
+  create: AccountCreateWithoutTripsInput!
+  update: AccountUpdateWithoutTripsInput!
 }
 
 input AccountWhereInput {
   AND: [AccountWhereInput!]
   NOT: [AccountWhereInput!]
   OR: [AccountWhereInput!]
+  createdAt: DateTimeFilter
   details: StringNullableFilter
   email: StringFilter
   id: IntFilter
   name: StringFilter
   password: StringFilter
+  trips: TripListRelationFilter
+  updatedAt: DateTimeFilter
 }
 
 input AccountWhereUniqueInput {
   email: String
   id: Int
+}
+
+scalar DateTime
+
+input DateTimeFieldUpdateOperationsInput {
+  set: DateTime
+}
+
+input DateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeFilter
+  notIn: [DateTime!]
+}
+
+input DateTimeNullableFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeNullableFilter
+  notIn: [DateTime!]
 }
 
 input IntFilter {
@@ -59,10 +150,46 @@ input IntFilter {
   notIn: [Int!]
 }
 
+input IntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntNullableFilter
+  notIn: [Int!]
+}
+
 type Mutation {
   createOneAccount(data: AccountCreateInput!): Account
+  createOneTrip(data: TripCreateInput!): Trip
   deleteOneAccount(where: AccountWhereUniqueInput!): Account
+  deleteOneTrip(where: TripWhereUniqueInput!): Trip
   updateOneAccount(data: AccountUpdateInput!, where: AccountWhereUniqueInput!): Account
+  updateOneTrip(data: TripUpdateInput!, where: TripWhereUniqueInput!): Trip
+}
+
+input NestedDateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeFilter
+  notIn: [DateTime!]
+}
+
+input NestedDateTimeNullableFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeNullableFilter
+  notIn: [DateTime!]
 }
 
 input NestedIntFilter {
@@ -73,6 +200,17 @@ input NestedIntFilter {
   lt: Int
   lte: Int
   not: NestedIntFilter
+  notIn: [Int!]
+}
+
+input NestedIntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntNullableFilter
   notIn: [Int!]
 }
 
@@ -104,6 +242,10 @@ input NestedStringNullableFilter {
   startsWith: String
 }
 
+input NullableDateTimeFieldUpdateOperationsInput {
+  set: DateTime
+}
+
 input NullableStringFieldUpdateOperationsInput {
   set: String
 }
@@ -111,13 +253,19 @@ input NullableStringFieldUpdateOperationsInput {
 type Query {
   account(where: AccountWhereUniqueInput!): Account
   accounts(after: AccountWhereUniqueInput, before: AccountWhereUniqueInput, first: Int, last: Int, orderBy: [AccountOrderByInput!], where: AccountWhereInput): [Account!]!
-  goodbye: String
-  hello: String
+  trip(where: TripWhereUniqueInput!): Trip
+  trips(after: TripWhereUniqueInput, before: TripWhereUniqueInput, first: Int, last: Int, orderBy: [TripOrderByInput!], where: QueryTripsWhereInput): [Trip!]!
 }
 
 enum QueryMode {
   default
   insensitive
+}
+
+input QueryTripsWhereInput {
+  createdAt: DateTimeFilter
+  name: StringFilter
+  ownerId: IntNullableFilter
 }
 
 enum SortOrder {
@@ -157,4 +305,143 @@ input StringNullableFilter {
   not: NestedStringNullableFilter
   notIn: [String!]
   startsWith: String
+}
+
+type Trip {
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  id: Int
+  name: String
+  updatedAt: DateTime
+}
+
+input TripCreateInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  name: String!
+  owner: AccountCreateNestedOneWithoutTripsInput
+  updatedAt: DateTime
+}
+
+input TripCreateNestedManyWithoutOwnerInput {
+  connect: [TripWhereUniqueInput!]
+  connectOrCreate: [TripCreateOrConnectWithoutownerInput!]
+  create: [TripCreateWithoutOwnerInput!]
+}
+
+input TripCreateOrConnectWithoutownerInput {
+  create: TripCreateWithoutOwnerInput!
+  where: TripWhereUniqueInput!
+}
+
+input TripCreateWithoutOwnerInput {
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  name: String!
+  updatedAt: DateTime
+}
+
+input TripListRelationFilter {
+  every: TripWhereInput
+  none: TripWhereInput
+  some: TripWhereInput
+}
+
+input TripOrderByInput {
+  createdAt: SortOrder
+  deletedAt: SortOrder
+  description: SortOrder
+  id: SortOrder
+  name: SortOrder
+  owner: AccountOrderByInput
+  ownerId: SortOrder
+  updatedAt: SortOrder
+}
+
+input TripScalarWhereInput {
+  AND: [TripScalarWhereInput!]
+  NOT: [TripScalarWhereInput!]
+  OR: [TripScalarWhereInput!]
+  createdAt: DateTimeFilter
+  deletedAt: DateTimeNullableFilter
+  description: StringNullableFilter
+  id: IntFilter
+  name: StringFilter
+  ownerId: IntNullableFilter
+  updatedAt: DateTimeFilter
+}
+
+input TripUpdateInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  deletedAt: NullableDateTimeFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  owner: AccountUpdateOneWithoutTripsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input TripUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  deletedAt: NullableDateTimeFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input TripUpdateManyWithWhereWithoutOwnerInput {
+  data: TripUpdateManyMutationInput!
+  where: TripScalarWhereInput!
+}
+
+input TripUpdateManyWithoutOwnerInput {
+  connect: [TripWhereUniqueInput!]
+  connectOrCreate: [TripCreateOrConnectWithoutownerInput!]
+  create: [TripCreateWithoutOwnerInput!]
+  delete: [TripWhereUniqueInput!]
+  deleteMany: [TripScalarWhereInput!]
+  disconnect: [TripWhereUniqueInput!]
+  set: [TripWhereUniqueInput!]
+  update: [TripUpdateWithWhereUniqueWithoutOwnerInput!]
+  updateMany: [TripUpdateManyWithWhereWithoutOwnerInput!]
+  upsert: [TripUpsertWithWhereUniqueWithoutOwnerInput!]
+}
+
+input TripUpdateWithWhereUniqueWithoutOwnerInput {
+  data: TripUpdateWithoutOwnerInput!
+  where: TripWhereUniqueInput!
+}
+
+input TripUpdateWithoutOwnerInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  deletedAt: NullableDateTimeFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input TripUpsertWithWhereUniqueWithoutOwnerInput {
+  create: TripCreateWithoutOwnerInput!
+  update: TripUpdateWithoutOwnerInput!
+  where: TripWhereUniqueInput!
+}
+
+input TripWhereInput {
+  AND: [TripWhereInput!]
+  NOT: [TripWhereInput!]
+  OR: [TripWhereInput!]
+  createdAt: DateTimeFilter
+  deletedAt: DateTimeNullableFilter
+  description: StringNullableFilter
+  id: IntFilter
+  name: StringFilter
+  owner: AccountWhereInput
+  ownerId: IntNullableFilter
+  updatedAt: DateTimeFilter
+}
+
+input TripWhereUniqueInput {
+  id: Int
 }

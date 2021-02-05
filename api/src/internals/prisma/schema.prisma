@@ -11,9 +11,23 @@ generator client {
 }
 
 model Account {
- id           Int      @default(autoincrement()) @id
- password     String
- email        String   @unique
- name         String
- details      String?
+  id           Int         @default(autoincrement()) @id
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  password     String
+  email        String      @unique
+  name         String
+  details      String?
+  trips        Trip[]
+}
+
+model Trip {
+  id           Int         @default(autoincrement()) @id
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  deletedAt    DateTime?
+  name         String
+  description  String?
+  owner        Account?    @relation(fields: [ownerId], references: [id])
+  ownerId      Int?
 }
