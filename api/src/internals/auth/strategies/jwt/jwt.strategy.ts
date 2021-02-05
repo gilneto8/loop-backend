@@ -4,11 +4,6 @@ import { Injectable } from '@nestjs/common';
 import { jwtConstants } from '../../constants';
 import getAccountDto from '../../../../modules/account/dtos/getAccount.dto';
 
-type TJwtValidationParams = {
-  sub: string;
-  email: string;
-};
-
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {

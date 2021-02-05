@@ -4,12 +4,13 @@ import createAccountDto from './dtos/createAccount.dto';
 import updateAccountDto from './dtos/updateAccount.dto';
 import { ErrorMessages } from '../../utils/enums/error-messages';
 import { PostgresErrorCodes } from '../../utils/enums/postgres-error-codes';
+import getAccountDto from './dtos/getAccount.dto';
 
 @Injectable()
 export class AccountService {
   constructor(private prisma: PrismaService) {}
 
-  validate(email: string) {
+  validate(email: getAccountDto['email']) {
     try {
       return this.prisma.account.findUnique({ where: { email } });
     } catch (err) {
@@ -20,10 +21,14 @@ export class AccountService {
     }
   }
 
-  async get(id: number) {
+  async get(id: getAccountDto['id']) {
     const account = await this.prisma.account.findUnique({ where: { id } });
-    if (!account)
-      throw new HttpException(ErrorMessages.ID_NOT_FOUND, HttpStatus.NOT_FOUND);
+    if (!account) {
+      throw new HttpException(
+        ErrorMessages.ACCOUNT_ID_NOT_FOUND,
+        HttpStatus.NOT_FOUND,
+      );
+    }
     return account;
   }
 
@@ -44,7 +49,7 @@ export class AccountService {
     }
   }
 
-  update(id: number, params: updateAccountDto) {
+  update(id: getAccountDto['id'], params: updateAccountDto) {
     try {
       return this.prisma.account.update({
         data: params,

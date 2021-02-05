@@ -29,6 +29,8 @@ const Trip = objectType<'Trip'>({
     t.model.createdAt();
     t.model.updatedAt();
     t.model.deletedAt();
+    t.model.ownerId();
+    t.model.owner();
   },
 });
 

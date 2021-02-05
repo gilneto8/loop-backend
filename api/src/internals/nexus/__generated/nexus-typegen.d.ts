@@ -404,6 +404,7 @@ export interface NexusGenObjects {
     description?: string | null; // String
     id?: number | null; // Int
     name?: string | null; // String
+    ownerId?: number | null; // Int
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
 }
@@ -449,6 +450,8 @@ export interface NexusGenFieldTypes {
     description: string | null; // String
     id: number | null; // Int
     name: string | null; // String
+    owner: NexusGenRootTypes['Account'] | null; // Account
+    ownerId: number | null; // Int
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   }
 }
@@ -484,6 +487,8 @@ export interface NexusGenFieldTypeNames {
     description: 'String'
     id: 'Int'
     name: 'String'
+    owner: 'Account'
+    ownerId: 'Int'
     updatedAt: 'DateTime'
   }
 }

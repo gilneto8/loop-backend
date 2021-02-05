@@ -313,6 +313,8 @@ type Trip {
   description: String
   id: Int
   name: String
+  owner: Account
+  ownerId: Int
   updatedAt: DateTime
 }
 

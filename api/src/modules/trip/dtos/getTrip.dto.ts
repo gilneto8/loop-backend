@@ -1,12 +1,12 @@
 import { NexusGenObjects } from '../../../internals/nexus/__generated/nexus-typegen';
 
-type TAccount = NexusGenObjects['Account'];
+type TTrip = NexusGenObjects['Trip'];
 
-export default class getAccountDto implements TAccount {
+export default class getTripDto implements TTrip {
   id!: number;
   name!: string;
-  email!: string;
-  details!: string | null;
+  description!: string | null;
   createdAt!: Date;
   updatedAt!: Date;
+  ownerId!: number;
 }
