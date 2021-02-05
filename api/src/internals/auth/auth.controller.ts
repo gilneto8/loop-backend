@@ -1,20 +1,20 @@
 import {
   Controller,
-  Request,
   Post,
+  Request,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { AuthService } from './internals/auth/auth.service';
-import { Public } from './internals/decorators/public-route';
-import { LocalAuthGuard } from './internals/auth/strategies/local/local.guard';
-import { TLoginCredentials } from './internals/auth/auth.types';
-import getAccountDto from './modules/account/dtos/getAccount.dto';
-import createAccountDto from './modules/account/dtos/createAccount.dto';
-import { RemovePasswordInterceptor } from './internals/interceptors/remove-password';
+import { AuthService } from './auth.service';
+import { Public } from '../decorators/public-route';
+import { LocalAuthGuard } from './strategies/local/local.guard';
+import { TLoginCredentials } from './auth.types';
+import getAccountDto from '../../modules/account/dtos/getAccount.dto';
+import { RemovePasswordInterceptor } from '../interceptors/remove-password';
+import createAccountDto from '../../modules/account/dtos/createAccount.dto';
 
 @Controller()
-export class AppController {
+export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Public()

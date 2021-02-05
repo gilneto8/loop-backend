@@ -5,11 +5,10 @@ import { LocalStrategy } from './strategies/local/local.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { JwtStrategy } from './strategies/jwt/jwt.strategy';
-import { APP_GUARD } from '@nestjs/core';
-import { JwtAuthGuard } from './strategies/jwt/jwt.guard';
 import { AccountModule } from '../../modules/account/account.module';
 import { AccountService } from '../../modules/account/account.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { AuthController } from './auth.controller';
 
 @Module({
   imports: [
@@ -20,17 +19,13 @@ import { PrismaService } from '../prisma/prisma.service';
       signOptions: { expiresIn: '60s' },
     }),
   ],
+  controllers: [AuthController],
   providers: [
     AuthService,
     AccountService,
     PrismaService,
     LocalStrategy,
     JwtStrategy,
-    {
-      provide: APP_GUARD,
-      useClass: JwtAuthGuard,
-    },
   ],
-  exports: [AuthService],
 })
 export class AuthModule {}

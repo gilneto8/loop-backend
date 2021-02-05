@@ -5,15 +5,15 @@ import {
   NestModule,
   OnApplicationShutdown,
 } from '@nestjs/common';
-import { AppController } from './app.controller';
 import internals from './internals';
 import modules from './modules';
 import { HTTPLogger } from './internals/middlewares/http-logger';
+import { GLOBAL_PROVIDERS } from './app.providers';
 
 @Module({
   imports: [...internals, ...modules],
-  controllers: [AppController],
-  providers: [],
+  controllers: [],
+  providers: [...GLOBAL_PROVIDERS],
 })
 export class AppModule implements NestModule, OnApplicationShutdown {
   private logger = new Logger('RootApplication');

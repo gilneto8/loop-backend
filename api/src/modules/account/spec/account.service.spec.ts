@@ -1,5 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AccountService } from './account.service';
+import { AccountService } from '../account.service';
+
+// TODO account unit tests
 
 describe('AccountsService', () => {
   let service: AccountService;
