@@ -54,6 +54,11 @@ export interface NexusGenInputs {
     password?: NexusGenEnums['SortOrder'] | null; // SortOrder
     updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
   }
+  AccountTripsOrderByInput: { // input type
+    createdAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    deletedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+  }
   AccountTripsWhereInput: { // input type
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     name?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -128,6 +133,24 @@ export interface NexusGenInputs {
     not?: NexusGenInputs['NestedDateTimeNullableFilter'] | null; // NestedDateTimeNullableFilter
     notIn?: NexusGenScalars['DateTime'][] | null; // [DateTime!]
   }
+  EnumPathTypeFieldUpdateOperationsInput: { // input type
+    set?: NexusGenEnums['PathType'] | null; // PathType
+  }
+  EnumPathTypeFilter: { // input type
+    equals?: NexusGenEnums['PathType'] | null; // PathType
+    in?: NexusGenEnums['PathType'][] | null; // [PathType!]
+    not?: NexusGenInputs['NestedEnumPathTypeFilter'] | null; // NestedEnumPathTypeFilter
+    notIn?: NexusGenEnums['PathType'][] | null; // [PathType!]
+  }
+  EnumWaypointTypeFieldUpdateOperationsInput: { // input type
+    set?: NexusGenEnums['WaypointType'] | null; // WaypointType
+  }
+  EnumWaypointTypeFilter: { // input type
+    equals?: NexusGenEnums['WaypointType'] | null; // WaypointType
+    in?: NexusGenEnums['WaypointType'][] | null; // [WaypointType!]
+    not?: NexusGenInputs['NestedEnumWaypointTypeFilter'] | null; // NestedEnumWaypointTypeFilter
+    notIn?: NexusGenEnums['WaypointType'][] | null; // [WaypointType!]
+  }
   IntFilter: { // input type
     equals?: number | null; // Int
     gt?: number | null; // Int
@@ -167,6 +190,18 @@ export interface NexusGenInputs {
     lte?: NexusGenScalars['DateTime'] | null; // DateTime
     not?: NexusGenInputs['NestedDateTimeNullableFilter'] | null; // NestedDateTimeNullableFilter
     notIn?: NexusGenScalars['DateTime'][] | null; // [DateTime!]
+  }
+  NestedEnumPathTypeFilter: { // input type
+    equals?: NexusGenEnums['PathType'] | null; // PathType
+    in?: NexusGenEnums['PathType'][] | null; // [PathType!]
+    not?: NexusGenInputs['NestedEnumPathTypeFilter'] | null; // NestedEnumPathTypeFilter
+    notIn?: NexusGenEnums['PathType'][] | null; // [PathType!]
+  }
+  NestedEnumWaypointTypeFilter: { // input type
+    equals?: NexusGenEnums['WaypointType'] | null; // WaypointType
+    in?: NexusGenEnums['WaypointType'][] | null; // [WaypointType!]
+    not?: NexusGenInputs['NestedEnumWaypointTypeFilter'] | null; // NestedEnumWaypointTypeFilter
+    notIn?: NexusGenEnums['WaypointType'][] | null; // [WaypointType!]
   }
   NestedIntFilter: { // input type
     equals?: number | null; // Int
@@ -220,10 +255,228 @@ export interface NexusGenInputs {
   NullableStringFieldUpdateOperationsInput: { // input type
     set?: string | null; // String
   }
-  QueryTripsWhereInput: { // input type
+  PathCreateInput: { // input type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    deletedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    description?: string | null; // String
+    from?: NexusGenInputs['WaypointCreateNestedOneWithoutFromInput'] | null; // WaypointCreateNestedOneWithoutFromInput
+    name: string; // String!
+    to?: NexusGenInputs['WaypointCreateNestedOneWithoutToInput'] | null; // WaypointCreateNestedOneWithoutToInput
+    trip?: NexusGenInputs['TripCreateNestedOneWithoutPathsInput'] | null; // TripCreateNestedOneWithoutPathsInput
+    type?: NexusGenEnums['PathType'] | null; // PathType
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  PathCreateNestedManyWithoutTripInput: { // input type
+    connect?: NexusGenInputs['PathWhereUniqueInput'][] | null; // [PathWhereUniqueInput!]
+    connectOrCreate?: NexusGenInputs['PathCreateOrConnectWithouttripInput'][] | null; // [PathCreateOrConnectWithouttripInput!]
+    create?: NexusGenInputs['PathCreateWithoutTripInput'][] | null; // [PathCreateWithoutTripInput!]
+  }
+  PathCreateNestedOneWithoutFromInput: { // input type
+    connect?: NexusGenInputs['PathWhereUniqueInput'] | null; // PathWhereUniqueInput
+    connectOrCreate?: NexusGenInputs['PathCreateOrConnectWithoutfromInput'] | null; // PathCreateOrConnectWithoutfromInput
+    create?: NexusGenInputs['PathCreateWithoutFromInput'] | null; // PathCreateWithoutFromInput
+  }
+  PathCreateNestedOneWithoutToInput: { // input type
+    connect?: NexusGenInputs['PathWhereUniqueInput'] | null; // PathWhereUniqueInput
+    connectOrCreate?: NexusGenInputs['PathCreateOrConnectWithouttoInput'] | null; // PathCreateOrConnectWithouttoInput
+    create?: NexusGenInputs['PathCreateWithoutToInput'] | null; // PathCreateWithoutToInput
+  }
+  PathCreateOrConnectWithoutfromInput: { // input type
+    create: NexusGenInputs['PathCreateWithoutFromInput']; // PathCreateWithoutFromInput!
+    where: NexusGenInputs['PathWhereUniqueInput']; // PathWhereUniqueInput!
+  }
+  PathCreateOrConnectWithouttoInput: { // input type
+    create: NexusGenInputs['PathCreateWithoutToInput']; // PathCreateWithoutToInput!
+    where: NexusGenInputs['PathWhereUniqueInput']; // PathWhereUniqueInput!
+  }
+  PathCreateOrConnectWithouttripInput: { // input type
+    create: NexusGenInputs['PathCreateWithoutTripInput']; // PathCreateWithoutTripInput!
+    where: NexusGenInputs['PathWhereUniqueInput']; // PathWhereUniqueInput!
+  }
+  PathCreateWithoutFromInput: { // input type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    deletedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    description?: string | null; // String
+    name: string; // String!
+    to?: NexusGenInputs['WaypointCreateNestedOneWithoutToInput'] | null; // WaypointCreateNestedOneWithoutToInput
+    trip?: NexusGenInputs['TripCreateNestedOneWithoutPathsInput'] | null; // TripCreateNestedOneWithoutPathsInput
+    type?: NexusGenEnums['PathType'] | null; // PathType
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  PathCreateWithoutToInput: { // input type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    deletedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    description?: string | null; // String
+    from?: NexusGenInputs['WaypointCreateNestedOneWithoutFromInput'] | null; // WaypointCreateNestedOneWithoutFromInput
+    name: string; // String!
+    trip?: NexusGenInputs['TripCreateNestedOneWithoutPathsInput'] | null; // TripCreateNestedOneWithoutPathsInput
+    type?: NexusGenEnums['PathType'] | null; // PathType
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  PathCreateWithoutTripInput: { // input type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    deletedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    description?: string | null; // String
+    from?: NexusGenInputs['WaypointCreateNestedOneWithoutFromInput'] | null; // WaypointCreateNestedOneWithoutFromInput
+    name: string; // String!
+    to?: NexusGenInputs['WaypointCreateNestedOneWithoutToInput'] | null; // WaypointCreateNestedOneWithoutToInput
+    type?: NexusGenEnums['PathType'] | null; // PathType
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  PathListRelationFilter: { // input type
+    every?: NexusGenInputs['PathWhereInput'] | null; // PathWhereInput
+    none?: NexusGenInputs['PathWhereInput'] | null; // PathWhereInput
+    some?: NexusGenInputs['PathWhereInput'] | null; // PathWhereInput
+  }
+  PathOrderByInput: { // input type
+    createdAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    deletedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    description?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    from?: NexusGenInputs['WaypointOrderByInput'] | null; // WaypointOrderByInput
+    fromId?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    id?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    name?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    toId?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    trip?: NexusGenInputs['TripOrderByInput'] | null; // TripOrderByInput
+    tripId?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    type?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+  }
+  PathScalarWhereInput: { // input type
+    AND?: NexusGenInputs['PathScalarWhereInput'][] | null; // [PathScalarWhereInput!]
+    NOT?: NexusGenInputs['PathScalarWhereInput'][] | null; // [PathScalarWhereInput!]
+    OR?: NexusGenInputs['PathScalarWhereInput'][] | null; // [PathScalarWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    deletedAt?: NexusGenInputs['DateTimeNullableFilter'] | null; // DateTimeNullableFilter
+    description?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
+    fromId?: NexusGenInputs['IntNullableFilter'] | null; // IntNullableFilter
+    id?: NexusGenInputs['IntFilter'] | null; // IntFilter
     name?: NexusGenInputs['StringFilter'] | null; // StringFilter
-    ownerId?: NexusGenInputs['IntNullableFilter'] | null; // IntNullableFilter
+    toId?: NexusGenInputs['IntNullableFilter'] | null; // IntNullableFilter
+    tripId?: NexusGenInputs['IntNullableFilter'] | null; // IntNullableFilter
+    type?: NexusGenInputs['EnumPathTypeFilter'] | null; // EnumPathTypeFilter
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+  }
+  PathUpdateInput: { // input type
+    createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    deletedAt?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    description?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    from?: NexusGenInputs['WaypointUpdateOneWithoutFromInput'] | null; // WaypointUpdateOneWithoutFromInput
+    name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    to?: NexusGenInputs['WaypointUpdateOneWithoutToInput'] | null; // WaypointUpdateOneWithoutToInput
+    trip?: NexusGenInputs['TripUpdateOneWithoutPathsInput'] | null; // TripUpdateOneWithoutPathsInput
+    type?: NexusGenInputs['EnumPathTypeFieldUpdateOperationsInput'] | null; // EnumPathTypeFieldUpdateOperationsInput
+    updatedAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+  }
+  PathUpdateManyMutationInput: { // input type
+    createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    deletedAt?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    description?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    type?: NexusGenInputs['EnumPathTypeFieldUpdateOperationsInput'] | null; // EnumPathTypeFieldUpdateOperationsInput
+    updatedAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+  }
+  PathUpdateManyWithWhereWithoutTripInput: { // input type
+    data: NexusGenInputs['PathUpdateManyMutationInput']; // PathUpdateManyMutationInput!
+    where: NexusGenInputs['PathScalarWhereInput']; // PathScalarWhereInput!
+  }
+  PathUpdateManyWithoutTripInput: { // input type
+    connect?: NexusGenInputs['PathWhereUniqueInput'][] | null; // [PathWhereUniqueInput!]
+    connectOrCreate?: NexusGenInputs['PathCreateOrConnectWithouttripInput'][] | null; // [PathCreateOrConnectWithouttripInput!]
+    create?: NexusGenInputs['PathCreateWithoutTripInput'][] | null; // [PathCreateWithoutTripInput!]
+    delete?: NexusGenInputs['PathWhereUniqueInput'][] | null; // [PathWhereUniqueInput!]
+    deleteMany?: NexusGenInputs['PathScalarWhereInput'][] | null; // [PathScalarWhereInput!]
+    disconnect?: NexusGenInputs['PathWhereUniqueInput'][] | null; // [PathWhereUniqueInput!]
+    set?: NexusGenInputs['PathWhereUniqueInput'][] | null; // [PathWhereUniqueInput!]
+    update?: NexusGenInputs['PathUpdateWithWhereUniqueWithoutTripInput'][] | null; // [PathUpdateWithWhereUniqueWithoutTripInput!]
+    updateMany?: NexusGenInputs['PathUpdateManyWithWhereWithoutTripInput'][] | null; // [PathUpdateManyWithWhereWithoutTripInput!]
+    upsert?: NexusGenInputs['PathUpsertWithWhereUniqueWithoutTripInput'][] | null; // [PathUpsertWithWhereUniqueWithoutTripInput!]
+  }
+  PathUpdateOneWithoutFromInput: { // input type
+    connect?: NexusGenInputs['PathWhereUniqueInput'] | null; // PathWhereUniqueInput
+    connectOrCreate?: NexusGenInputs['PathCreateOrConnectWithoutfromInput'] | null; // PathCreateOrConnectWithoutfromInput
+    create?: NexusGenInputs['PathCreateWithoutFromInput'] | null; // PathCreateWithoutFromInput
+    delete?: boolean | null; // Boolean
+    disconnect?: boolean | null; // Boolean
+    update?: NexusGenInputs['PathUpdateWithoutFromInput'] | null; // PathUpdateWithoutFromInput
+    upsert?: NexusGenInputs['PathUpsertWithoutFromInput'] | null; // PathUpsertWithoutFromInput
+  }
+  PathUpdateOneWithoutToInput: { // input type
+    connect?: NexusGenInputs['PathWhereUniqueInput'] | null; // PathWhereUniqueInput
+    connectOrCreate?: NexusGenInputs['PathCreateOrConnectWithouttoInput'] | null; // PathCreateOrConnectWithouttoInput
+    create?: NexusGenInputs['PathCreateWithoutToInput'] | null; // PathCreateWithoutToInput
+    delete?: boolean | null; // Boolean
+    disconnect?: boolean | null; // Boolean
+    update?: NexusGenInputs['PathUpdateWithoutToInput'] | null; // PathUpdateWithoutToInput
+    upsert?: NexusGenInputs['PathUpsertWithoutToInput'] | null; // PathUpsertWithoutToInput
+  }
+  PathUpdateWithWhereUniqueWithoutTripInput: { // input type
+    data: NexusGenInputs['PathUpdateWithoutTripInput']; // PathUpdateWithoutTripInput!
+    where: NexusGenInputs['PathWhereUniqueInput']; // PathWhereUniqueInput!
+  }
+  PathUpdateWithoutFromInput: { // input type
+    createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    deletedAt?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    description?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    to?: NexusGenInputs['WaypointUpdateOneWithoutToInput'] | null; // WaypointUpdateOneWithoutToInput
+    trip?: NexusGenInputs['TripUpdateOneWithoutPathsInput'] | null; // TripUpdateOneWithoutPathsInput
+    type?: NexusGenInputs['EnumPathTypeFieldUpdateOperationsInput'] | null; // EnumPathTypeFieldUpdateOperationsInput
+    updatedAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+  }
+  PathUpdateWithoutToInput: { // input type
+    createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    deletedAt?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    description?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    from?: NexusGenInputs['WaypointUpdateOneWithoutFromInput'] | null; // WaypointUpdateOneWithoutFromInput
+    name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    trip?: NexusGenInputs['TripUpdateOneWithoutPathsInput'] | null; // TripUpdateOneWithoutPathsInput
+    type?: NexusGenInputs['EnumPathTypeFieldUpdateOperationsInput'] | null; // EnumPathTypeFieldUpdateOperationsInput
+    updatedAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+  }
+  PathUpdateWithoutTripInput: { // input type
+    createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    deletedAt?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    description?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    from?: NexusGenInputs['WaypointUpdateOneWithoutFromInput'] | null; // WaypointUpdateOneWithoutFromInput
+    name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    to?: NexusGenInputs['WaypointUpdateOneWithoutToInput'] | null; // WaypointUpdateOneWithoutToInput
+    type?: NexusGenInputs['EnumPathTypeFieldUpdateOperationsInput'] | null; // EnumPathTypeFieldUpdateOperationsInput
+    updatedAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+  }
+  PathUpsertWithWhereUniqueWithoutTripInput: { // input type
+    create: NexusGenInputs['PathCreateWithoutTripInput']; // PathCreateWithoutTripInput!
+    update: NexusGenInputs['PathUpdateWithoutTripInput']; // PathUpdateWithoutTripInput!
+    where: NexusGenInputs['PathWhereUniqueInput']; // PathWhereUniqueInput!
+  }
+  PathUpsertWithoutFromInput: { // input type
+    create: NexusGenInputs['PathCreateWithoutFromInput']; // PathCreateWithoutFromInput!
+    update: NexusGenInputs['PathUpdateWithoutFromInput']; // PathUpdateWithoutFromInput!
+  }
+  PathUpsertWithoutToInput: { // input type
+    create: NexusGenInputs['PathCreateWithoutToInput']; // PathCreateWithoutToInput!
+    update: NexusGenInputs['PathUpdateWithoutToInput']; // PathUpdateWithoutToInput!
+  }
+  PathWhereInput: { // input type
+    AND?: NexusGenInputs['PathWhereInput'][] | null; // [PathWhereInput!]
+    NOT?: NexusGenInputs['PathWhereInput'][] | null; // [PathWhereInput!]
+    OR?: NexusGenInputs['PathWhereInput'][] | null; // [PathWhereInput!]
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    deletedAt?: NexusGenInputs['DateTimeNullableFilter'] | null; // DateTimeNullableFilter
+    description?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
+    from?: NexusGenInputs['WaypointWhereInput'] | null; // WaypointWhereInput
+    fromId?: NexusGenInputs['IntNullableFilter'] | null; // IntNullableFilter
+    id?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    to?: NexusGenInputs['WaypointWhereInput'] | null; // WaypointWhereInput
+    toId?: NexusGenInputs['IntNullableFilter'] | null; // IntNullableFilter
+    trip?: NexusGenInputs['TripWhereInput'] | null; // TripWhereInput
+    tripId?: NexusGenInputs['IntNullableFilter'] | null; // IntNullableFilter
+    type?: NexusGenInputs['EnumPathTypeFilter'] | null; // EnumPathTypeFilter
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+  }
+  PathWhereUniqueInput: { // input type
+    id?: number | null; // Int
   }
   StringFieldUpdateOperationsInput: { // input type
     set?: string | null; // String
@@ -262,15 +515,35 @@ export interface NexusGenInputs {
     description?: string | null; // String
     name: string; // String!
     owner?: NexusGenInputs['AccountCreateNestedOneWithoutTripsInput'] | null; // AccountCreateNestedOneWithoutTripsInput
+    paths?: NexusGenInputs['PathCreateNestedManyWithoutTripInput'] | null; // PathCreateNestedManyWithoutTripInput
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    waypoints?: NexusGenInputs['WaypointCreateNestedManyWithoutTripInput'] | null; // WaypointCreateNestedManyWithoutTripInput
   }
   TripCreateNestedManyWithoutOwnerInput: { // input type
     connect?: NexusGenInputs['TripWhereUniqueInput'][] | null; // [TripWhereUniqueInput!]
     connectOrCreate?: NexusGenInputs['TripCreateOrConnectWithoutownerInput'][] | null; // [TripCreateOrConnectWithoutownerInput!]
     create?: NexusGenInputs['TripCreateWithoutOwnerInput'][] | null; // [TripCreateWithoutOwnerInput!]
   }
+  TripCreateNestedOneWithoutPathsInput: { // input type
+    connect?: NexusGenInputs['TripWhereUniqueInput'] | null; // TripWhereUniqueInput
+    connectOrCreate?: NexusGenInputs['TripCreateOrConnectWithoutpathsInput'] | null; // TripCreateOrConnectWithoutpathsInput
+    create?: NexusGenInputs['TripCreateWithoutPathsInput'] | null; // TripCreateWithoutPathsInput
+  }
+  TripCreateNestedOneWithoutWaypointsInput: { // input type
+    connect?: NexusGenInputs['TripWhereUniqueInput'] | null; // TripWhereUniqueInput
+    connectOrCreate?: NexusGenInputs['TripCreateOrConnectWithoutwaypointsInput'] | null; // TripCreateOrConnectWithoutwaypointsInput
+    create?: NexusGenInputs['TripCreateWithoutWaypointsInput'] | null; // TripCreateWithoutWaypointsInput
+  }
   TripCreateOrConnectWithoutownerInput: { // input type
     create: NexusGenInputs['TripCreateWithoutOwnerInput']; // TripCreateWithoutOwnerInput!
+    where: NexusGenInputs['TripWhereUniqueInput']; // TripWhereUniqueInput!
+  }
+  TripCreateOrConnectWithoutpathsInput: { // input type
+    create: NexusGenInputs['TripCreateWithoutPathsInput']; // TripCreateWithoutPathsInput!
+    where: NexusGenInputs['TripWhereUniqueInput']; // TripWhereUniqueInput!
+  }
+  TripCreateOrConnectWithoutwaypointsInput: { // input type
+    create: NexusGenInputs['TripCreateWithoutWaypointsInput']; // TripCreateWithoutWaypointsInput!
     where: NexusGenInputs['TripWhereUniqueInput']; // TripWhereUniqueInput!
   }
   TripCreateWithoutOwnerInput: { // input type
@@ -278,6 +551,26 @@ export interface NexusGenInputs {
     deletedAt?: NexusGenScalars['DateTime'] | null; // DateTime
     description?: string | null; // String
     name: string; // String!
+    paths?: NexusGenInputs['PathCreateNestedManyWithoutTripInput'] | null; // PathCreateNestedManyWithoutTripInput
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    waypoints?: NexusGenInputs['WaypointCreateNestedManyWithoutTripInput'] | null; // WaypointCreateNestedManyWithoutTripInput
+  }
+  TripCreateWithoutPathsInput: { // input type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    deletedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    description?: string | null; // String
+    name: string; // String!
+    owner?: NexusGenInputs['AccountCreateNestedOneWithoutTripsInput'] | null; // AccountCreateNestedOneWithoutTripsInput
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    waypoints?: NexusGenInputs['WaypointCreateNestedManyWithoutTripInput'] | null; // WaypointCreateNestedManyWithoutTripInput
+  }
+  TripCreateWithoutWaypointsInput: { // input type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    deletedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    description?: string | null; // String
+    name: string; // String!
+    owner?: NexusGenInputs['AccountCreateNestedOneWithoutTripsInput'] | null; // AccountCreateNestedOneWithoutTripsInput
+    paths?: NexusGenInputs['PathCreateNestedManyWithoutTripInput'] | null; // PathCreateNestedManyWithoutTripInput
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
   TripListRelationFilter: { // input type
@@ -294,6 +587,15 @@ export interface NexusGenInputs {
     owner?: NexusGenInputs['AccountOrderByInput'] | null; // AccountOrderByInput
     ownerId?: NexusGenEnums['SortOrder'] | null; // SortOrder
     updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+  }
+  TripPathsOrderByInput: { // input type
+    createdAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    deletedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+  }
+  TripPathsWhereInput: { // input type
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
   }
   TripScalarWhereInput: { // input type
     AND?: NexusGenInputs['TripScalarWhereInput'][] | null; // [TripScalarWhereInput!]
@@ -313,7 +615,9 @@ export interface NexusGenInputs {
     description?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     owner?: NexusGenInputs['AccountUpdateOneWithoutTripsInput'] | null; // AccountUpdateOneWithoutTripsInput
+    paths?: NexusGenInputs['PathUpdateManyWithoutTripInput'] | null; // PathUpdateManyWithoutTripInput
     updatedAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    waypoints?: NexusGenInputs['WaypointUpdateManyWithoutTripInput'] | null; // WaypointUpdateManyWithoutTripInput
   }
   TripUpdateManyMutationInput: { // input type
     createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
@@ -338,6 +642,24 @@ export interface NexusGenInputs {
     updateMany?: NexusGenInputs['TripUpdateManyWithWhereWithoutOwnerInput'][] | null; // [TripUpdateManyWithWhereWithoutOwnerInput!]
     upsert?: NexusGenInputs['TripUpsertWithWhereUniqueWithoutOwnerInput'][] | null; // [TripUpsertWithWhereUniqueWithoutOwnerInput!]
   }
+  TripUpdateOneWithoutPathsInput: { // input type
+    connect?: NexusGenInputs['TripWhereUniqueInput'] | null; // TripWhereUniqueInput
+    connectOrCreate?: NexusGenInputs['TripCreateOrConnectWithoutpathsInput'] | null; // TripCreateOrConnectWithoutpathsInput
+    create?: NexusGenInputs['TripCreateWithoutPathsInput'] | null; // TripCreateWithoutPathsInput
+    delete?: boolean | null; // Boolean
+    disconnect?: boolean | null; // Boolean
+    update?: NexusGenInputs['TripUpdateWithoutPathsInput'] | null; // TripUpdateWithoutPathsInput
+    upsert?: NexusGenInputs['TripUpsertWithoutPathsInput'] | null; // TripUpsertWithoutPathsInput
+  }
+  TripUpdateOneWithoutWaypointsInput: { // input type
+    connect?: NexusGenInputs['TripWhereUniqueInput'] | null; // TripWhereUniqueInput
+    connectOrCreate?: NexusGenInputs['TripCreateOrConnectWithoutwaypointsInput'] | null; // TripCreateOrConnectWithoutwaypointsInput
+    create?: NexusGenInputs['TripCreateWithoutWaypointsInput'] | null; // TripCreateWithoutWaypointsInput
+    delete?: boolean | null; // Boolean
+    disconnect?: boolean | null; // Boolean
+    update?: NexusGenInputs['TripUpdateWithoutWaypointsInput'] | null; // TripUpdateWithoutWaypointsInput
+    upsert?: NexusGenInputs['TripUpsertWithoutWaypointsInput'] | null; // TripUpsertWithoutWaypointsInput
+  }
   TripUpdateWithWhereUniqueWithoutOwnerInput: { // input type
     data: NexusGenInputs['TripUpdateWithoutOwnerInput']; // TripUpdateWithoutOwnerInput!
     where: NexusGenInputs['TripWhereUniqueInput']; // TripWhereUniqueInput!
@@ -347,12 +669,49 @@ export interface NexusGenInputs {
     deletedAt?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
     description?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    paths?: NexusGenInputs['PathUpdateManyWithoutTripInput'] | null; // PathUpdateManyWithoutTripInput
+    updatedAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    waypoints?: NexusGenInputs['WaypointUpdateManyWithoutTripInput'] | null; // WaypointUpdateManyWithoutTripInput
+  }
+  TripUpdateWithoutPathsInput: { // input type
+    createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    deletedAt?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    description?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    owner?: NexusGenInputs['AccountUpdateOneWithoutTripsInput'] | null; // AccountUpdateOneWithoutTripsInput
+    updatedAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    waypoints?: NexusGenInputs['WaypointUpdateManyWithoutTripInput'] | null; // WaypointUpdateManyWithoutTripInput
+  }
+  TripUpdateWithoutWaypointsInput: { // input type
+    createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    deletedAt?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    description?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    owner?: NexusGenInputs['AccountUpdateOneWithoutTripsInput'] | null; // AccountUpdateOneWithoutTripsInput
+    paths?: NexusGenInputs['PathUpdateManyWithoutTripInput'] | null; // PathUpdateManyWithoutTripInput
     updatedAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
   }
   TripUpsertWithWhereUniqueWithoutOwnerInput: { // input type
     create: NexusGenInputs['TripCreateWithoutOwnerInput']; // TripCreateWithoutOwnerInput!
     update: NexusGenInputs['TripUpdateWithoutOwnerInput']; // TripUpdateWithoutOwnerInput!
     where: NexusGenInputs['TripWhereUniqueInput']; // TripWhereUniqueInput!
+  }
+  TripUpsertWithoutPathsInput: { // input type
+    create: NexusGenInputs['TripCreateWithoutPathsInput']; // TripCreateWithoutPathsInput!
+    update: NexusGenInputs['TripUpdateWithoutPathsInput']; // TripUpdateWithoutPathsInput!
+  }
+  TripUpsertWithoutWaypointsInput: { // input type
+    create: NexusGenInputs['TripCreateWithoutWaypointsInput']; // TripCreateWithoutWaypointsInput!
+    update: NexusGenInputs['TripUpdateWithoutWaypointsInput']; // TripUpdateWithoutWaypointsInput!
+  }
+  TripWaypointsOrderByInput: { // input type
+    createdAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    deletedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+  }
+  TripWaypointsWhereInput: { // input type
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
   }
   TripWhereInput: { // input type
     AND?: NexusGenInputs['TripWhereInput'][] | null; // [TripWhereInput!]
@@ -365,16 +724,237 @@ export interface NexusGenInputs {
     name?: NexusGenInputs['StringFilter'] | null; // StringFilter
     owner?: NexusGenInputs['AccountWhereInput'] | null; // AccountWhereInput
     ownerId?: NexusGenInputs['IntNullableFilter'] | null; // IntNullableFilter
+    paths?: NexusGenInputs['PathListRelationFilter'] | null; // PathListRelationFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    waypoints?: NexusGenInputs['WaypointListRelationFilter'] | null; // WaypointListRelationFilter
   }
   TripWhereUniqueInput: { // input type
+    id?: number | null; // Int
+  }
+  WaypointCreateInput: { // input type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    deletedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    description?: string | null; // String
+    from?: NexusGenInputs['PathCreateNestedOneWithoutFromInput'] | null; // PathCreateNestedOneWithoutFromInput
+    name: string; // String!
+    to?: NexusGenInputs['PathCreateNestedOneWithoutToInput'] | null; // PathCreateNestedOneWithoutToInput
+    trip?: NexusGenInputs['TripCreateNestedOneWithoutWaypointsInput'] | null; // TripCreateNestedOneWithoutWaypointsInput
+    type?: NexusGenEnums['WaypointType'] | null; // WaypointType
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  WaypointCreateNestedManyWithoutTripInput: { // input type
+    connect?: NexusGenInputs['WaypointWhereUniqueInput'][] | null; // [WaypointWhereUniqueInput!]
+    connectOrCreate?: NexusGenInputs['WaypointCreateOrConnectWithouttripInput'][] | null; // [WaypointCreateOrConnectWithouttripInput!]
+    create?: NexusGenInputs['WaypointCreateWithoutTripInput'][] | null; // [WaypointCreateWithoutTripInput!]
+  }
+  WaypointCreateNestedOneWithoutFromInput: { // input type
+    connect?: NexusGenInputs['WaypointWhereUniqueInput'] | null; // WaypointWhereUniqueInput
+    connectOrCreate?: NexusGenInputs['WaypointCreateOrConnectWithoutfromInput'] | null; // WaypointCreateOrConnectWithoutfromInput
+    create?: NexusGenInputs['WaypointCreateWithoutFromInput'] | null; // WaypointCreateWithoutFromInput
+  }
+  WaypointCreateNestedOneWithoutToInput: { // input type
+    connect?: NexusGenInputs['WaypointWhereUniqueInput'] | null; // WaypointWhereUniqueInput
+    connectOrCreate?: NexusGenInputs['WaypointCreateOrConnectWithouttoInput'] | null; // WaypointCreateOrConnectWithouttoInput
+    create?: NexusGenInputs['WaypointCreateWithoutToInput'] | null; // WaypointCreateWithoutToInput
+  }
+  WaypointCreateOrConnectWithoutfromInput: { // input type
+    create: NexusGenInputs['WaypointCreateWithoutFromInput']; // WaypointCreateWithoutFromInput!
+    where: NexusGenInputs['WaypointWhereUniqueInput']; // WaypointWhereUniqueInput!
+  }
+  WaypointCreateOrConnectWithouttoInput: { // input type
+    create: NexusGenInputs['WaypointCreateWithoutToInput']; // WaypointCreateWithoutToInput!
+    where: NexusGenInputs['WaypointWhereUniqueInput']; // WaypointWhereUniqueInput!
+  }
+  WaypointCreateOrConnectWithouttripInput: { // input type
+    create: NexusGenInputs['WaypointCreateWithoutTripInput']; // WaypointCreateWithoutTripInput!
+    where: NexusGenInputs['WaypointWhereUniqueInput']; // WaypointWhereUniqueInput!
+  }
+  WaypointCreateWithoutFromInput: { // input type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    deletedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    description?: string | null; // String
+    name: string; // String!
+    to?: NexusGenInputs['PathCreateNestedOneWithoutToInput'] | null; // PathCreateNestedOneWithoutToInput
+    trip?: NexusGenInputs['TripCreateNestedOneWithoutWaypointsInput'] | null; // TripCreateNestedOneWithoutWaypointsInput
+    type?: NexusGenEnums['WaypointType'] | null; // WaypointType
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  WaypointCreateWithoutToInput: { // input type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    deletedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    description?: string | null; // String
+    from?: NexusGenInputs['PathCreateNestedOneWithoutFromInput'] | null; // PathCreateNestedOneWithoutFromInput
+    name: string; // String!
+    trip?: NexusGenInputs['TripCreateNestedOneWithoutWaypointsInput'] | null; // TripCreateNestedOneWithoutWaypointsInput
+    type?: NexusGenEnums['WaypointType'] | null; // WaypointType
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  WaypointCreateWithoutTripInput: { // input type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    deletedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    description?: string | null; // String
+    from?: NexusGenInputs['PathCreateNestedOneWithoutFromInput'] | null; // PathCreateNestedOneWithoutFromInput
+    name: string; // String!
+    to?: NexusGenInputs['PathCreateNestedOneWithoutToInput'] | null; // PathCreateNestedOneWithoutToInput
+    type?: NexusGenEnums['WaypointType'] | null; // WaypointType
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  WaypointListRelationFilter: { // input type
+    every?: NexusGenInputs['WaypointWhereInput'] | null; // WaypointWhereInput
+    none?: NexusGenInputs['WaypointWhereInput'] | null; // WaypointWhereInput
+    some?: NexusGenInputs['WaypointWhereInput'] | null; // WaypointWhereInput
+  }
+  WaypointOrderByInput: { // input type
+    createdAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    deletedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    description?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    id?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    name?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    to?: NexusGenInputs['PathOrderByInput'] | null; // PathOrderByInput
+    trip?: NexusGenInputs['TripOrderByInput'] | null; // TripOrderByInput
+    tripId?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    type?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    updatedAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+  }
+  WaypointScalarWhereInput: { // input type
+    AND?: NexusGenInputs['WaypointScalarWhereInput'][] | null; // [WaypointScalarWhereInput!]
+    NOT?: NexusGenInputs['WaypointScalarWhereInput'][] | null; // [WaypointScalarWhereInput!]
+    OR?: NexusGenInputs['WaypointScalarWhereInput'][] | null; // [WaypointScalarWhereInput!]
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    deletedAt?: NexusGenInputs['DateTimeNullableFilter'] | null; // DateTimeNullableFilter
+    description?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
+    id?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    tripId?: NexusGenInputs['IntNullableFilter'] | null; // IntNullableFilter
+    type?: NexusGenInputs['EnumWaypointTypeFilter'] | null; // EnumWaypointTypeFilter
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+  }
+  WaypointUpdateInput: { // input type
+    createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    deletedAt?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    description?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    from?: NexusGenInputs['PathUpdateOneWithoutFromInput'] | null; // PathUpdateOneWithoutFromInput
+    name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    to?: NexusGenInputs['PathUpdateOneWithoutToInput'] | null; // PathUpdateOneWithoutToInput
+    trip?: NexusGenInputs['TripUpdateOneWithoutWaypointsInput'] | null; // TripUpdateOneWithoutWaypointsInput
+    type?: NexusGenInputs['EnumWaypointTypeFieldUpdateOperationsInput'] | null; // EnumWaypointTypeFieldUpdateOperationsInput
+    updatedAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+  }
+  WaypointUpdateManyMutationInput: { // input type
+    createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    deletedAt?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    description?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    type?: NexusGenInputs['EnumWaypointTypeFieldUpdateOperationsInput'] | null; // EnumWaypointTypeFieldUpdateOperationsInput
+    updatedAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+  }
+  WaypointUpdateManyWithWhereWithoutTripInput: { // input type
+    data: NexusGenInputs['WaypointUpdateManyMutationInput']; // WaypointUpdateManyMutationInput!
+    where: NexusGenInputs['WaypointScalarWhereInput']; // WaypointScalarWhereInput!
+  }
+  WaypointUpdateManyWithoutTripInput: { // input type
+    connect?: NexusGenInputs['WaypointWhereUniqueInput'][] | null; // [WaypointWhereUniqueInput!]
+    connectOrCreate?: NexusGenInputs['WaypointCreateOrConnectWithouttripInput'][] | null; // [WaypointCreateOrConnectWithouttripInput!]
+    create?: NexusGenInputs['WaypointCreateWithoutTripInput'][] | null; // [WaypointCreateWithoutTripInput!]
+    delete?: NexusGenInputs['WaypointWhereUniqueInput'][] | null; // [WaypointWhereUniqueInput!]
+    deleteMany?: NexusGenInputs['WaypointScalarWhereInput'][] | null; // [WaypointScalarWhereInput!]
+    disconnect?: NexusGenInputs['WaypointWhereUniqueInput'][] | null; // [WaypointWhereUniqueInput!]
+    set?: NexusGenInputs['WaypointWhereUniqueInput'][] | null; // [WaypointWhereUniqueInput!]
+    update?: NexusGenInputs['WaypointUpdateWithWhereUniqueWithoutTripInput'][] | null; // [WaypointUpdateWithWhereUniqueWithoutTripInput!]
+    updateMany?: NexusGenInputs['WaypointUpdateManyWithWhereWithoutTripInput'][] | null; // [WaypointUpdateManyWithWhereWithoutTripInput!]
+    upsert?: NexusGenInputs['WaypointUpsertWithWhereUniqueWithoutTripInput'][] | null; // [WaypointUpsertWithWhereUniqueWithoutTripInput!]
+  }
+  WaypointUpdateOneWithoutFromInput: { // input type
+    connect?: NexusGenInputs['WaypointWhereUniqueInput'] | null; // WaypointWhereUniqueInput
+    connectOrCreate?: NexusGenInputs['WaypointCreateOrConnectWithoutfromInput'] | null; // WaypointCreateOrConnectWithoutfromInput
+    create?: NexusGenInputs['WaypointCreateWithoutFromInput'] | null; // WaypointCreateWithoutFromInput
+    delete?: boolean | null; // Boolean
+    disconnect?: boolean | null; // Boolean
+    update?: NexusGenInputs['WaypointUpdateWithoutFromInput'] | null; // WaypointUpdateWithoutFromInput
+    upsert?: NexusGenInputs['WaypointUpsertWithoutFromInput'] | null; // WaypointUpsertWithoutFromInput
+  }
+  WaypointUpdateOneWithoutToInput: { // input type
+    connect?: NexusGenInputs['WaypointWhereUniqueInput'] | null; // WaypointWhereUniqueInput
+    connectOrCreate?: NexusGenInputs['WaypointCreateOrConnectWithouttoInput'] | null; // WaypointCreateOrConnectWithouttoInput
+    create?: NexusGenInputs['WaypointCreateWithoutToInput'] | null; // WaypointCreateWithoutToInput
+    delete?: boolean | null; // Boolean
+    disconnect?: boolean | null; // Boolean
+    update?: NexusGenInputs['WaypointUpdateWithoutToInput'] | null; // WaypointUpdateWithoutToInput
+    upsert?: NexusGenInputs['WaypointUpsertWithoutToInput'] | null; // WaypointUpsertWithoutToInput
+  }
+  WaypointUpdateWithWhereUniqueWithoutTripInput: { // input type
+    data: NexusGenInputs['WaypointUpdateWithoutTripInput']; // WaypointUpdateWithoutTripInput!
+    where: NexusGenInputs['WaypointWhereUniqueInput']; // WaypointWhereUniqueInput!
+  }
+  WaypointUpdateWithoutFromInput: { // input type
+    createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    deletedAt?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    description?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    to?: NexusGenInputs['PathUpdateOneWithoutToInput'] | null; // PathUpdateOneWithoutToInput
+    trip?: NexusGenInputs['TripUpdateOneWithoutWaypointsInput'] | null; // TripUpdateOneWithoutWaypointsInput
+    type?: NexusGenInputs['EnumWaypointTypeFieldUpdateOperationsInput'] | null; // EnumWaypointTypeFieldUpdateOperationsInput
+    updatedAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+  }
+  WaypointUpdateWithoutToInput: { // input type
+    createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    deletedAt?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    description?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    from?: NexusGenInputs['PathUpdateOneWithoutFromInput'] | null; // PathUpdateOneWithoutFromInput
+    name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    trip?: NexusGenInputs['TripUpdateOneWithoutWaypointsInput'] | null; // TripUpdateOneWithoutWaypointsInput
+    type?: NexusGenInputs['EnumWaypointTypeFieldUpdateOperationsInput'] | null; // EnumWaypointTypeFieldUpdateOperationsInput
+    updatedAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+  }
+  WaypointUpdateWithoutTripInput: { // input type
+    createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    deletedAt?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    description?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    from?: NexusGenInputs['PathUpdateOneWithoutFromInput'] | null; // PathUpdateOneWithoutFromInput
+    name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    to?: NexusGenInputs['PathUpdateOneWithoutToInput'] | null; // PathUpdateOneWithoutToInput
+    type?: NexusGenInputs['EnumWaypointTypeFieldUpdateOperationsInput'] | null; // EnumWaypointTypeFieldUpdateOperationsInput
+    updatedAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+  }
+  WaypointUpsertWithWhereUniqueWithoutTripInput: { // input type
+    create: NexusGenInputs['WaypointCreateWithoutTripInput']; // WaypointCreateWithoutTripInput!
+    update: NexusGenInputs['WaypointUpdateWithoutTripInput']; // WaypointUpdateWithoutTripInput!
+    where: NexusGenInputs['WaypointWhereUniqueInput']; // WaypointWhereUniqueInput!
+  }
+  WaypointUpsertWithoutFromInput: { // input type
+    create: NexusGenInputs['WaypointCreateWithoutFromInput']; // WaypointCreateWithoutFromInput!
+    update: NexusGenInputs['WaypointUpdateWithoutFromInput']; // WaypointUpdateWithoutFromInput!
+  }
+  WaypointUpsertWithoutToInput: { // input type
+    create: NexusGenInputs['WaypointCreateWithoutToInput']; // WaypointCreateWithoutToInput!
+    update: NexusGenInputs['WaypointUpdateWithoutToInput']; // WaypointUpdateWithoutToInput!
+  }
+  WaypointWhereInput: { // input type
+    AND?: NexusGenInputs['WaypointWhereInput'][] | null; // [WaypointWhereInput!]
+    NOT?: NexusGenInputs['WaypointWhereInput'][] | null; // [WaypointWhereInput!]
+    OR?: NexusGenInputs['WaypointWhereInput'][] | null; // [WaypointWhereInput!]
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    deletedAt?: NexusGenInputs['DateTimeNullableFilter'] | null; // DateTimeNullableFilter
+    description?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
+    from?: NexusGenInputs['PathWhereInput'] | null; // PathWhereInput
+    id?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    to?: NexusGenInputs['PathWhereInput'] | null; // PathWhereInput
+    trip?: NexusGenInputs['TripWhereInput'] | null; // TripWhereInput
+    tripId?: NexusGenInputs['IntNullableFilter'] | null; // IntNullableFilter
+    type?: NexusGenInputs['EnumWaypointTypeFilter'] | null; // EnumWaypointTypeFilter
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+  }
+  WaypointWhereUniqueInput: { // input type
     id?: number | null; // Int
   }
 }
 
 export interface NexusGenEnums {
+  PathType: "BOAT" | "CAR" | "PEDESTRIAN" | "PLANE" | "TRAIN"
   QueryMode: "default" | "insensitive"
   SortOrder: "asc" | "desc"
+  WaypointType: "HOTEL" | "POI" | "SIGHTSEEING" | "TRANSPORT"
 }
 
 export interface NexusGenScalars {
@@ -397,6 +977,18 @@ export interface NexusGenObjects {
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
   Mutation: {};
+  Path: { // root type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    deletedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    description?: string | null; // String
+    fromId?: number | null; // Int
+    id?: number | null; // Int
+    name?: string | null; // String
+    toId?: number | null; // Int
+    tripId?: number | null; // Int
+    type?: NexusGenEnums['PathType'] | null; // PathType
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
   Query: {};
   Trip: { // root type
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
@@ -405,6 +997,16 @@ export interface NexusGenObjects {
     id?: number | null; // Int
     name?: string | null; // String
     ownerId?: number | null; // Int
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  Waypoint: { // root type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    deletedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    description?: string | null; // String
+    id?: number | null; // Int
+    name?: string | null; // String
+    tripId?: number | null; // Int
+    type?: NexusGenEnums['WaypointType'] | null; // WaypointType
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
 }
@@ -432,17 +1034,42 @@ export interface NexusGenFieldTypes {
   }
   Mutation: { // field return type
     createOneAccount: NexusGenRootTypes['Account'] | null; // Account
+    createOnePath: NexusGenRootTypes['Path'] | null; // Path
     createOneTrip: NexusGenRootTypes['Trip'] | null; // Trip
+    createOneWaypoint: NexusGenRootTypes['Waypoint'] | null; // Waypoint
     deleteOneAccount: NexusGenRootTypes['Account'] | null; // Account
+    deleteOnePath: NexusGenRootTypes['Path'] | null; // Path
     deleteOneTrip: NexusGenRootTypes['Trip'] | null; // Trip
+    deleteOneWaypoint: NexusGenRootTypes['Waypoint'] | null; // Waypoint
     updateOneAccount: NexusGenRootTypes['Account'] | null; // Account
+    updateOnePath: NexusGenRootTypes['Path'] | null; // Path
     updateOneTrip: NexusGenRootTypes['Trip'] | null; // Trip
+    updateOneWaypoint: NexusGenRootTypes['Waypoint'] | null; // Waypoint
+  }
+  Path: { // field return type
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    deletedAt: NexusGenScalars['DateTime'] | null; // DateTime
+    description: string | null; // String
+    from: NexusGenRootTypes['Waypoint'] | null; // Waypoint
+    fromId: number | null; // Int
+    id: number | null; // Int
+    name: string | null; // String
+    to: NexusGenRootTypes['Waypoint'] | null; // Waypoint
+    toId: number | null; // Int
+    trip: NexusGenRootTypes['Trip'] | null; // Trip
+    tripId: number | null; // Int
+    type: NexusGenEnums['PathType'] | null; // PathType
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   }
   Query: { // field return type
     account: NexusGenRootTypes['Account'] | null; // Account
     accounts: NexusGenRootTypes['Account'][]; // [Account!]!
+    path: NexusGenRootTypes['Path'] | null; // Path
+    paths: NexusGenRootTypes['Path'][]; // [Path!]!
     trip: NexusGenRootTypes['Trip'] | null; // Trip
     trips: NexusGenRootTypes['Trip'][]; // [Trip!]!
+    waypoint: NexusGenRootTypes['Waypoint'] | null; // Waypoint
+    waypoints: NexusGenRootTypes['Waypoint'][]; // [Waypoint!]!
   }
   Trip: { // field return type
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
@@ -452,6 +1079,21 @@ export interface NexusGenFieldTypes {
     name: string | null; // String
     owner: NexusGenRootTypes['Account'] | null; // Account
     ownerId: number | null; // Int
+    paths: NexusGenRootTypes['Path'][]; // [Path!]!
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+    waypoints: NexusGenRootTypes['Waypoint'][]; // [Waypoint!]!
+  }
+  Waypoint: { // field return type
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    deletedAt: NexusGenScalars['DateTime'] | null; // DateTime
+    description: string | null; // String
+    from: NexusGenRootTypes['Path'] | null; // Path
+    id: number | null; // Int
+    name: string | null; // String
+    to: NexusGenRootTypes['Path'] | null; // Path
+    trip: NexusGenRootTypes['Trip'] | null; // Trip
+    tripId: number | null; // Int
+    type: NexusGenEnums['WaypointType'] | null; // WaypointType
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   }
 }
@@ -469,17 +1111,42 @@ export interface NexusGenFieldTypeNames {
   }
   Mutation: { // field return type name
     createOneAccount: 'Account'
+    createOnePath: 'Path'
     createOneTrip: 'Trip'
+    createOneWaypoint: 'Waypoint'
     deleteOneAccount: 'Account'
+    deleteOnePath: 'Path'
     deleteOneTrip: 'Trip'
+    deleteOneWaypoint: 'Waypoint'
     updateOneAccount: 'Account'
+    updateOnePath: 'Path'
     updateOneTrip: 'Trip'
+    updateOneWaypoint: 'Waypoint'
+  }
+  Path: { // field return type name
+    createdAt: 'DateTime'
+    deletedAt: 'DateTime'
+    description: 'String'
+    from: 'Waypoint'
+    fromId: 'Int'
+    id: 'Int'
+    name: 'String'
+    to: 'Waypoint'
+    toId: 'Int'
+    trip: 'Trip'
+    tripId: 'Int'
+    type: 'PathType'
+    updatedAt: 'DateTime'
   }
   Query: { // field return type name
     account: 'Account'
     accounts: 'Account'
+    path: 'Path'
+    paths: 'Path'
     trip: 'Trip'
     trips: 'Trip'
+    waypoint: 'Waypoint'
+    waypoints: 'Waypoint'
   }
   Trip: { // field return type name
     createdAt: 'DateTime'
@@ -489,6 +1156,21 @@ export interface NexusGenFieldTypeNames {
     name: 'String'
     owner: 'Account'
     ownerId: 'Int'
+    paths: 'Path'
+    updatedAt: 'DateTime'
+    waypoints: 'Waypoint'
+  }
+  Waypoint: { // field return type name
+    createdAt: 'DateTime'
+    deletedAt: 'DateTime'
+    description: 'String'
+    from: 'Path'
+    id: 'Int'
+    name: 'String'
+    to: 'Path'
+    trip: 'Trip'
+    tripId: 'Int'
+    type: 'WaypointType'
     updatedAt: 'DateTime'
   }
 }
@@ -500,6 +1182,7 @@ export interface NexusGenArgTypes {
       before?: NexusGenInputs['TripWhereUniqueInput'] | null; // TripWhereUniqueInput
       first?: number | null; // Int
       last?: number | null; // Int
+      orderBy?: NexusGenInputs['AccountTripsOrderByInput'][] | null; // [AccountTripsOrderByInput!]
       where?: NexusGenInputs['AccountTripsWhereInput'] | null; // AccountTripsWhereInput
     }
   }
@@ -507,22 +1190,42 @@ export interface NexusGenArgTypes {
     createOneAccount: { // args
       data: NexusGenInputs['AccountCreateInput']; // AccountCreateInput!
     }
+    createOnePath: { // args
+      data: NexusGenInputs['PathCreateInput']; // PathCreateInput!
+    }
     createOneTrip: { // args
       data: NexusGenInputs['TripCreateInput']; // TripCreateInput!
+    }
+    createOneWaypoint: { // args
+      data: NexusGenInputs['WaypointCreateInput']; // WaypointCreateInput!
     }
     deleteOneAccount: { // args
       where: NexusGenInputs['AccountWhereUniqueInput']; // AccountWhereUniqueInput!
     }
+    deleteOnePath: { // args
+      where: NexusGenInputs['PathWhereUniqueInput']; // PathWhereUniqueInput!
+    }
     deleteOneTrip: { // args
       where: NexusGenInputs['TripWhereUniqueInput']; // TripWhereUniqueInput!
+    }
+    deleteOneWaypoint: { // args
+      where: NexusGenInputs['WaypointWhereUniqueInput']; // WaypointWhereUniqueInput!
     }
     updateOneAccount: { // args
       data: NexusGenInputs['AccountUpdateInput']; // AccountUpdateInput!
       where: NexusGenInputs['AccountWhereUniqueInput']; // AccountWhereUniqueInput!
     }
+    updateOnePath: { // args
+      data: NexusGenInputs['PathUpdateInput']; // PathUpdateInput!
+      where: NexusGenInputs['PathWhereUniqueInput']; // PathWhereUniqueInput!
+    }
     updateOneTrip: { // args
       data: NexusGenInputs['TripUpdateInput']; // TripUpdateInput!
       where: NexusGenInputs['TripWhereUniqueInput']; // TripWhereUniqueInput!
+    }
+    updateOneWaypoint: { // args
+      data: NexusGenInputs['WaypointUpdateInput']; // WaypointUpdateInput!
+      where: NexusGenInputs['WaypointWhereUniqueInput']; // WaypointWhereUniqueInput!
     }
   }
   Query: {
@@ -537,6 +1240,17 @@ export interface NexusGenArgTypes {
       orderBy?: NexusGenInputs['AccountOrderByInput'][] | null; // [AccountOrderByInput!]
       where?: NexusGenInputs['AccountWhereInput'] | null; // AccountWhereInput
     }
+    path: { // args
+      where: NexusGenInputs['PathWhereUniqueInput']; // PathWhereUniqueInput!
+    }
+    paths: { // args
+      after?: NexusGenInputs['PathWhereUniqueInput'] | null; // PathWhereUniqueInput
+      before?: NexusGenInputs['PathWhereUniqueInput'] | null; // PathWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+      orderBy?: NexusGenInputs['PathOrderByInput'][] | null; // [PathOrderByInput!]
+      where?: NexusGenInputs['PathWhereInput'] | null; // PathWhereInput
+    }
     trip: { // args
       where: NexusGenInputs['TripWhereUniqueInput']; // TripWhereUniqueInput!
     }
@@ -546,7 +1260,36 @@ export interface NexusGenArgTypes {
       first?: number | null; // Int
       last?: number | null; // Int
       orderBy?: NexusGenInputs['TripOrderByInput'][] | null; // [TripOrderByInput!]
-      where?: NexusGenInputs['QueryTripsWhereInput'] | null; // QueryTripsWhereInput
+      where?: NexusGenInputs['TripWhereInput'] | null; // TripWhereInput
+    }
+    waypoint: { // args
+      where: NexusGenInputs['WaypointWhereUniqueInput']; // WaypointWhereUniqueInput!
+    }
+    waypoints: { // args
+      after?: NexusGenInputs['WaypointWhereUniqueInput'] | null; // WaypointWhereUniqueInput
+      before?: NexusGenInputs['WaypointWhereUniqueInput'] | null; // WaypointWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+      orderBy?: NexusGenInputs['WaypointOrderByInput'][] | null; // [WaypointOrderByInput!]
+      where?: NexusGenInputs['WaypointWhereInput'] | null; // WaypointWhereInput
+    }
+  }
+  Trip: {
+    paths: { // args
+      after?: NexusGenInputs['PathWhereUniqueInput'] | null; // PathWhereUniqueInput
+      before?: NexusGenInputs['PathWhereUniqueInput'] | null; // PathWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+      orderBy?: NexusGenInputs['TripPathsOrderByInput'][] | null; // [TripPathsOrderByInput!]
+      where?: NexusGenInputs['TripPathsWhereInput'] | null; // TripPathsWhereInput
+    }
+    waypoints: { // args
+      after?: NexusGenInputs['WaypointWhereUniqueInput'] | null; // WaypointWhereUniqueInput
+      before?: NexusGenInputs['WaypointWhereUniqueInput'] | null; // WaypointWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+      orderBy?: NexusGenInputs['TripWaypointsOrderByInput'][] | null; // [TripWaypointsOrderByInput!]
+      where?: NexusGenInputs['TripWaypointsWhereInput'] | null; // TripWaypointsWhereInput
     }
   }
 }

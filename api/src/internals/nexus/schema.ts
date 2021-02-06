@@ -2,20 +2,30 @@ import { queryType, makeSchema, objectType, mutationType } from 'nexus';
 import { nexusPrisma } from 'nexus-plugin-prisma';
 import { join } from 'path';
 
+/*
+ * 1st: define objectType
+ * 2nd: add objectType to schema types
+ * (restart)
+ * 3rd: add its relations to other objectTypes
+ * (restart)
+ * 4th: define its queries and mutations
+ * (restart)
+ */
+
 const Account = objectType<'Account'>({
   name: 'Account',
   definition(t) {
     t.model.id();
-    t.model.name();
-    t.model.email();
-    t.model.details();
-    t.model.password();
     t.model.createdAt();
     t.model.updatedAt();
+    t.model.password();
+    t.model.email();
+    t.model.name();
+    t.model.details();
     t.model.trips({
-      type: 'Trip',
       pagination: true,
       filtering: { name: true, createdAt: true },
+      ordering: { createdAt: true, updatedAt: true, deletedAt: true },
     });
   },
 });
@@ -24,13 +34,59 @@ const Trip = objectType<'Trip'>({
   name: 'Trip',
   definition(t) {
     t.model.id();
-    t.model.name();
-    t.model.description();
     t.model.createdAt();
     t.model.updatedAt();
     t.model.deletedAt();
-    t.model.ownerId();
+    t.model.name();
+    t.model.description();
+    t.model.waypoints({
+      pagination: true,
+      filtering: { name: true, createdAt: true },
+      ordering: { createdAt: true, updatedAt: true, deletedAt: true },
+    });
+    t.model.paths({
+      pagination: true,
+      filtering: { name: true, createdAt: true },
+      ordering: { createdAt: true, updatedAt: true, deletedAt: true },
+    });
     t.model.owner();
+    t.model.ownerId();
+  },
+});
+
+const Waypoint = objectType<'Waypoint'>({
+  name: 'Waypoint',
+  definition(t) {
+    t.model.id();
+    t.model.createdAt();
+    t.model.updatedAt();
+    t.model.deletedAt();
+    t.model.name();
+    t.model.description();
+    t.model.type();
+    t.model.to();
+    t.model.from();
+    t.model.trip();
+    t.model.tripId();
+  },
+});
+
+const Path = objectType<'Path'>({
+  name: 'Path',
+  definition(t) {
+    t.model.id();
+    t.model.createdAt();
+    t.model.updatedAt();
+    t.model.deletedAt();
+    t.model.name();
+    t.model.description();
+    t.model.type();
+    t.model.trip();
+    t.model.tripId();
+    t.model.to();
+    t.model.toId();
+    t.model.from();
+    t.model.fromId();
   },
 });
 
@@ -38,6 +94,7 @@ const Query = queryType({
   definition(t) {
     t.crud.account();
     t.crud.accounts({
+      pagination: true,
       filtering: true,
       ordering: true,
     });
@@ -45,11 +102,19 @@ const Query = queryType({
     t.crud.trips({
       pagination: true,
       ordering: true,
-      filtering: {
-        name: true,
-        createdAt: true,
-        ownerId: true,
-      },
+      filtering: true,
+    });
+    t.crud.path();
+    t.crud.paths({
+      pagination: true,
+      ordering: true,
+      filtering: true,
+    });
+    t.crud.waypoint();
+    t.crud.waypoints({
+      pagination: true,
+      ordering: true,
+      filtering: true,
     });
   },
 });
@@ -62,11 +127,17 @@ const Mutation = mutationType({
     t.crud.createOneTrip();
     t.crud.updateOneTrip();
     t.crud.deleteOneTrip();
+    t.crud.createOnePath();
+    t.crud.updateOnePath();
+    t.crud.deleteOnePath();
+    t.crud.createOneWaypoint();
+    t.crud.updateOneWaypoint();
+    t.crud.deleteOneWaypoint();
   },
 });
 
 export const schema = makeSchema({
-  types: [Account, Trip, Query, Mutation],
+  types: [Account, Trip, Waypoint, Path, Query, Mutation],
   plugins: [nexusPrisma({ experimentalCRUD: true })],
   outputs: {
     typegen: join(

@@ -11,23 +11,70 @@ generator client {
 }
 
 model Account {
-  id           Int         @default(autoincrement()) @id
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
-  password     String
-  email        String      @unique
-  name         String
-  details      String?
-  trips        Trip[]
+  id              Int               @default(autoincrement()) @id
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  password        String
+  email           String            @unique
+  name            String
+  details         String?
+  trips           Trip[]
 }
 
 model Trip {
-  id           Int         @default(autoincrement()) @id
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
-  deletedAt    DateTime?
-  name         String
-  description  String?
-  owner        Account?    @relation(fields: [ownerId], references: [id])
-  ownerId      Int?
+  id              Int               @default(autoincrement()) @id
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  deletedAt       DateTime?
+  name            String
+  description     String?
+  waypoints       Waypoint[]
+  paths           Path[]
+  owner           Account?          @relation(fields: [ownerId], references: [id])
+  ownerId         Int?
+}
+
+model Waypoint {
+  id              Int               @default(autoincrement()) @id
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  deletedAt       DateTime?
+  name            String
+  description     String?
+  type            WaypointType      @default(POI)
+  to              Path?             @relation("To")
+  from            Path?             @relation("From")
+  trip            Trip?             @relation(fields: [tripId], references: [id])
+  tripId          Int?
+}
+
+enum WaypointType {
+  HOTEL
+  SIGHTSEEING
+  POI
+  TRANSPORT
+}
+
+model Path {
+  id              Int               @default(autoincrement()) @id
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  deletedAt       DateTime?
+  name            String
+  description     String?
+  type            PathType          @default(PEDESTRIAN)
+  trip            Trip?             @relation(fields: [tripId], references: [id])
+  tripId          Int?
+  to              Waypoint?         @relation("To", fields: [toId], references: [id])
+  toId            Int?
+  from            Waypoint?         @relation("From", fields: [fromId], references: [id])
+  fromId          Int?
+}
+
+enum PathType {
+  TRAIN
+  BOAT
+  PLANE
+  PEDESTRIAN
+  CAR
 }
