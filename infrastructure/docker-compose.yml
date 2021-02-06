@@ -3,15 +3,17 @@ version: '3.7'
 services:
   postgres:
     container_name: loop-database
-    image: postgres
+    image: kartoza/postgis:13-3.1
     environment:
-      - POSTGRES_DB=loop
+      - POSTGRES_DBNAME=loop
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PASS=postgres
+      - ALLOW_IP_RANGE=0.0.0.0/0
     ports:
       - 5432:5432
+    restart: on-failure
     volumes:
-      - loop-database-volume:/var/lib/postgresql/data
+      - loop-database-volume:/var/lib/postgresql
 
 volumes:
   loop-database-volume: {}
