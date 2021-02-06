@@ -39,6 +39,11 @@ export class TripService {
   }
 
   create(ownerId: getAccountDto['id'], params: createTripDto) {
+    if (!ownerId)
+      throw new HttpException(
+        ErrorMessages.ACCOUNT_ID_NOT_FOUND,
+        HttpStatus.NOT_FOUND,
+      );
     try {
       return this.prisma.trip.create({ data: { ownerId, ...params } });
     } catch (err) {
