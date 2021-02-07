@@ -27,7 +27,8 @@ export class TripService {
     const trips = this.prisma.trip.findMany({
       where: {
         ownerId,
-        ...(() => (includeDeleted ? {} : { NOT: { deletedAt: null } }))(),
+        ...(() =>
+          includeDeleted ? {} : { NOT: { deletedAt: { not: null } } })(),
       },
     });
     if (!trips)
@@ -60,13 +61,20 @@ export class TripService {
     }
   }
 
-  update(id: getTripDto['id'], params: updateTripDto) {
+  async update(id: getTripDto['id'], params: updateTripDto) {
     try {
-      return this.prisma.trip.update({
+      await this.prisma.trip.findUnique({ where: { id } });
+      return await this.prisma.trip.update({
         data: params,
         where: { id },
       });
     } catch (err) {
+      if (err?.code === PostgresErrorCodes.RecordNotFound) {
+        throw new HttpException(
+          ErrorMessages.TRIP_ID_NOT_FOUND,
+          HttpStatus.CONFLICT,
+        );
+      }
       throw new HttpException(
         ErrorMessages.UNKNOWN,
         HttpStatus.INTERNAL_SERVER_ERROR,
