@@ -14,7 +14,7 @@ export class TripService {
   constructor(private prisma: PrismaService) {}
 
   async get(id: getTripDto['id']) {
-    const trip = this.prisma.trip.findUnique({ where: { id } });
+    const trip = await this.prisma.trip.findUnique({ where: { id } });
     if (!trip)
       throw new HttpException(
         ErrorMessages.TRIP_ID_NOT_FOUND,

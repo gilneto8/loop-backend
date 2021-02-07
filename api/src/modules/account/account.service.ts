@@ -10,25 +10,23 @@ import getAccountDto from './dtos/getAccount.dto';
 export class AccountService {
   constructor(private prisma: PrismaService) {}
 
-  validate(email: getAccountDto['email']) {
-    try {
-      return this.prisma.account.findUnique({ where: { email } });
-    } catch (err) {
-      throw new HttpException(
-        ErrorMessages.UNKNOWN,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
-    }
-  }
-
-  async get(id: getAccountDto['id']) {
-    const account = await this.prisma.account.findUnique({ where: { id } });
-    if (!account) {
+  async validate(email: getAccountDto['email']) {
+    const account = await this.prisma.account.findUnique({ where: { email } });
+    if (!account)
       throw new HttpException(
         ErrorMessages.ACCOUNT_ID_NOT_FOUND,
         HttpStatus.NOT_FOUND,
       );
-    }
+    return account;
+  }
+
+  async get(id: getAccountDto['id']) {
+    const account = await this.prisma.account.findUnique({ where: { id } });
+    if (!account)
+      throw new HttpException(
+        ErrorMessages.ACCOUNT_ID_NOT_FOUND,
+        HttpStatus.NOT_FOUND,
+      );
     return account;
   }
 
@@ -49,13 +47,20 @@ export class AccountService {
     }
   }
 
-  update(id: getAccountDto['id'], params: updateAccountDto) {
+  async update(id: getAccountDto['id'], params: updateAccountDto) {
     try {
-      return this.prisma.account.update({
+      await this.prisma.account.findUnique({ where: { id } });
+      return await this.prisma.account.update({
         data: params,
         where: { id },
       });
     } catch (err) {
+      if (err?.code === PostgresErrorCodes.RecordNotFound) {
+        throw new HttpException(
+          ErrorMessages.ACCOUNT_ID_NOT_FOUND,
+          HttpStatus.CONFLICT,
+        );
+      }
       throw new HttpException(
         ErrorMessages.UNKNOWN,
         HttpStatus.INTERNAL_SERVER_ERROR,
