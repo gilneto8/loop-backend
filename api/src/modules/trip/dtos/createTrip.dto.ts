@@ -10,4 +10,6 @@ export default class createTripDto implements TCreateTrip {
   createdAt!: Date;
   updatedAt!: Date;
   deletedAt!: Date | undefined;
+  waypoints!: any;
+  paths!: any;
 }
