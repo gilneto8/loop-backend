@@ -1,16 +1,18 @@
 import {
+  NexusGenEnums,
   NexusGenObjects,
   NexusGenScalars,
 } from '../../../internals/nexus/__generated/nexus-typegen';
 
-type TTrip = NexusGenObjects['Trip'];
+type TWaypoint = NexusGenObjects['Waypoint'];
 
-export default class getTripDto implements TTrip {
+export default class getWaypointDto implements TWaypoint {
   id!: number;
   name!: string;
+  type!: NexusGenEnums['WaypointType'];
   description!: string | null;
+  tripId!: number;
   createdAt!: NexusGenScalars['DateTime'];
   updatedAt!: NexusGenScalars['DateTime'];
   deletedAt!: NexusGenScalars['DateTime'] | null;
-  ownerId!: number;
 }

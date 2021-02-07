@@ -4,6 +4,6 @@ import { PathController } from './path.controller';
 
 @Module({
   providers: [PathService],
-  controllers: [PathController]
+  controllers: [PathController],
 })
 export class PathModule {}

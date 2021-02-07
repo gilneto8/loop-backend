@@ -4,11 +4,12 @@ import {
 } from '../../../internals/nexus/__generated/nexus-typegen';
 import { Unnull } from '../../../utils/remove-null-type';
 
-type TUpdateTrip = NexusGenArgTypes['Mutation']['updateOneTrip']['data'];
+type TUpdateWaypoint = NexusGenArgTypes['Mutation']['updateOneWaypoint']['data'];
 
-export default class updateTripDto implements TUpdateTrip {
+export default class updateWaypointDto implements TUpdateWaypoint {
   name!: Unnull<NexusGenInputs['StringFieldUpdateOperationsInput']> | undefined;
-  description!:
+  description:
     | Unnull<NexusGenInputs['StringFieldUpdateOperationsInput']>
     | undefined;
+  type!: Unnull<NexusGenInputs['EnumWaypointTypeFieldUpdateOperationsInput']>;
 }

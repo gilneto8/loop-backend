@@ -7,7 +7,4 @@ export default class createAccountDto implements TCreateAccount {
   password!: string;
   email!: string;
   details!: string | undefined;
-  trips!: any; // TODO how to map this to the trip type?
-  createdAt!: Date;
-  updatedAt!: Date;
 }

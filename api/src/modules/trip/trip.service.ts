@@ -14,7 +14,10 @@ export class TripService {
   constructor(private prisma: PrismaService) {}
 
   async get(id: getTripDto['id']) {
-    const trip = await this.prisma.trip.findUnique({ where: { id } });
+    const trip = await this.prisma.trip.findUnique({
+      where: { id },
+      include: { waypoints: true, paths: true },
+    });
     if (!trip)
       throw new HttpException(
         ErrorMessages.TRIP_ID_NOT_FOUND,
@@ -30,6 +33,7 @@ export class TripService {
         ...(() =>
           includeDeleted ? {} : { NOT: { deletedAt: { not: null } } })(),
       },
+      include: { waypoints: true, paths: true },
     });
     if (!trips)
       throw new HttpException(

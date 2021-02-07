@@ -1,4 +1,7 @@
-import { NexusGenObjects } from '../../../internals/nexus/__generated/nexus-typegen';
+import {
+  NexusGenObjects,
+  NexusGenScalars,
+} from '../../../internals/nexus/__generated/nexus-typegen';
 
 type TAccount = NexusGenObjects['Account'];
 
@@ -7,6 +10,6 @@ export default class getAccountDto implements TAccount {
   name!: string;
   email!: string;
   details!: string | null;
-  createdAt!: Date;
-  updatedAt!: Date;
+  createdAt!: NexusGenScalars['DateTime'];
+  updatedAt!: NexusGenScalars['DateTime'];
 }

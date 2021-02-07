@@ -1,8 +1,14 @@
-import { NexusGenArgTypes } from '../../../internals/nexus/__generated/nexus-typegen';
+import {
+  NexusGenArgTypes,
+  NexusGenInputs,
+} from '../../../internals/nexus/__generated/nexus-typegen';
+import { Unnull } from '../../../utils/remove-null-type';
 
 type TUpdateAccount = NexusGenArgTypes['Mutation']['updateOneAccount']['data'];
 
 export default class updateAccountDto implements TUpdateAccount {
-  name!: { set?: string | undefined } | undefined;
-  details!: { set?: string | undefined } | undefined;
+  name!: Unnull<NexusGenInputs['StringFieldUpdateOperationsInput']> | undefined;
+  details!:
+    | Unnull<NexusGenInputs['StringFieldUpdateOperationsInput']>
+    | undefined;
 }
