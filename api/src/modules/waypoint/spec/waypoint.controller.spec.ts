@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { WaypointController } from './waypoint.controller';
+import { WaypointController } from '../waypoint.controller';
 
 describe('WaypointController', () => {
   let controller: WaypointController;

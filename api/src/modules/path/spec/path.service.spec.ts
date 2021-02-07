@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PathService } from './path.service';
+import { PathService } from '../path.service';
 
 describe('PathService', () => {
   let service: PathService;

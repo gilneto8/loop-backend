@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { WaypointService } from './waypoint.service';
+import { WaypointService } from '../waypoint.service';
 
 describe('WaypointService', () => {
   let service: WaypointService;

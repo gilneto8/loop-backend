@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PathController } from './path.controller';
+import { PathController } from '../path.controller';
 
 describe('PathController', () => {
   let controller: PathController;
