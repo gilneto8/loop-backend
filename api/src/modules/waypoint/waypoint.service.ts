@@ -70,7 +70,7 @@ export class WaypointService {
           where: { id: waypoint.id },
           data: { deletedAt: moment().toDate() },
         });
-      else return this.prisma.trip.delete({ where: { ...params } });
+      else return this.prisma.waypoint.delete({ where: { ...params } });
     } catch (err) {
       throw new HttpException(
         ErrorMessages.UNKNOWN,

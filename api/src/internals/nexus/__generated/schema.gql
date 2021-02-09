@@ -326,22 +326,22 @@ input PathCreateInput {
   updatedAt: DateTime
 }
 
+input PathCreateNestedManyWithoutFromInput {
+  connect: [PathWhereUniqueInput!]
+  connectOrCreate: [PathCreateOrConnectWithoutfromInput!]
+  create: [PathCreateWithoutFromInput!]
+}
+
+input PathCreateNestedManyWithoutToInput {
+  connect: [PathWhereUniqueInput!]
+  connectOrCreate: [PathCreateOrConnectWithouttoInput!]
+  create: [PathCreateWithoutToInput!]
+}
+
 input PathCreateNestedManyWithoutTripInput {
   connect: [PathWhereUniqueInput!]
   connectOrCreate: [PathCreateOrConnectWithouttripInput!]
   create: [PathCreateWithoutTripInput!]
-}
-
-input PathCreateNestedOneWithoutFromInput {
-  connect: PathWhereUniqueInput
-  connectOrCreate: PathCreateOrConnectWithoutfromInput
-  create: PathCreateWithoutFromInput
-}
-
-input PathCreateNestedOneWithoutToInput {
-  connect: PathWhereUniqueInput
-  connectOrCreate: PathCreateOrConnectWithouttoInput
-  create: PathCreateWithoutToInput
 }
 
 input PathCreateOrConnectWithoutfromInput {
@@ -406,6 +406,7 @@ input PathOrderByInput {
   fromId: SortOrder
   id: SortOrder
   name: SortOrder
+  to: WaypointOrderByInput
   toId: SortOrder
   trip: TripOrderByInput
   tripId: SortOrder
@@ -458,9 +459,45 @@ input PathUpdateManyMutationInput {
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
+input PathUpdateManyWithWhereWithoutFromInput {
+  data: PathUpdateManyMutationInput!
+  where: PathScalarWhereInput!
+}
+
+input PathUpdateManyWithWhereWithoutToInput {
+  data: PathUpdateManyMutationInput!
+  where: PathScalarWhereInput!
+}
+
 input PathUpdateManyWithWhereWithoutTripInput {
   data: PathUpdateManyMutationInput!
   where: PathScalarWhereInput!
+}
+
+input PathUpdateManyWithoutFromInput {
+  connect: [PathWhereUniqueInput!]
+  connectOrCreate: [PathCreateOrConnectWithoutfromInput!]
+  create: [PathCreateWithoutFromInput!]
+  delete: [PathWhereUniqueInput!]
+  deleteMany: [PathScalarWhereInput!]
+  disconnect: [PathWhereUniqueInput!]
+  set: [PathWhereUniqueInput!]
+  update: [PathUpdateWithWhereUniqueWithoutFromInput!]
+  updateMany: [PathUpdateManyWithWhereWithoutFromInput!]
+  upsert: [PathUpsertWithWhereUniqueWithoutFromInput!]
+}
+
+input PathUpdateManyWithoutToInput {
+  connect: [PathWhereUniqueInput!]
+  connectOrCreate: [PathCreateOrConnectWithouttoInput!]
+  create: [PathCreateWithoutToInput!]
+  delete: [PathWhereUniqueInput!]
+  deleteMany: [PathScalarWhereInput!]
+  disconnect: [PathWhereUniqueInput!]
+  set: [PathWhereUniqueInput!]
+  update: [PathUpdateWithWhereUniqueWithoutToInput!]
+  updateMany: [PathUpdateManyWithWhereWithoutToInput!]
+  upsert: [PathUpsertWithWhereUniqueWithoutToInput!]
 }
 
 input PathUpdateManyWithoutTripInput {
@@ -476,24 +513,14 @@ input PathUpdateManyWithoutTripInput {
   upsert: [PathUpsertWithWhereUniqueWithoutTripInput!]
 }
 
-input PathUpdateOneWithoutFromInput {
-  connect: PathWhereUniqueInput
-  connectOrCreate: PathCreateOrConnectWithoutfromInput
-  create: PathCreateWithoutFromInput
-  delete: Boolean
-  disconnect: Boolean
-  update: PathUpdateWithoutFromInput
-  upsert: PathUpsertWithoutFromInput
+input PathUpdateWithWhereUniqueWithoutFromInput {
+  data: PathUpdateWithoutFromInput!
+  where: PathWhereUniqueInput!
 }
 
-input PathUpdateOneWithoutToInput {
-  connect: PathWhereUniqueInput
-  connectOrCreate: PathCreateOrConnectWithouttoInput
-  create: PathCreateWithoutToInput
-  delete: Boolean
-  disconnect: Boolean
-  update: PathUpdateWithoutToInput
-  upsert: PathUpsertWithoutToInput
+input PathUpdateWithWhereUniqueWithoutToInput {
+  data: PathUpdateWithoutToInput!
+  where: PathWhereUniqueInput!
 }
 
 input PathUpdateWithWhereUniqueWithoutTripInput {
@@ -534,20 +561,22 @@ input PathUpdateWithoutTripInput {
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
+input PathUpsertWithWhereUniqueWithoutFromInput {
+  create: PathCreateWithoutFromInput!
+  update: PathUpdateWithoutFromInput!
+  where: PathWhereUniqueInput!
+}
+
+input PathUpsertWithWhereUniqueWithoutToInput {
+  create: PathCreateWithoutToInput!
+  update: PathUpdateWithoutToInput!
+  where: PathWhereUniqueInput!
+}
+
 input PathUpsertWithWhereUniqueWithoutTripInput {
   create: PathCreateWithoutTripInput!
   update: PathUpdateWithoutTripInput!
   where: PathWhereUniqueInput!
-}
-
-input PathUpsertWithoutFromInput {
-  create: PathCreateWithoutFromInput!
-  update: PathUpdateWithoutFromInput!
-}
-
-input PathUpsertWithoutToInput {
-  create: PathCreateWithoutToInput!
-  update: PathUpdateWithoutToInput!
 }
 
 input PathWhereInput {
@@ -899,10 +928,10 @@ type Waypoint {
   createdAt: DateTime
   deletedAt: DateTime
   description: String
-  from: Path
+  from(after: PathWhereUniqueInput, before: PathWhereUniqueInput, first: Int, last: Int): [Path!]!
   id: Int
   name: String
-  to: Path
+  to(after: PathWhereUniqueInput, before: PathWhereUniqueInput, first: Int, last: Int): [Path!]!
   trip: Trip
   tripId: Int
   type: WaypointType
@@ -913,9 +942,9 @@ input WaypointCreateInput {
   createdAt: DateTime
   deletedAt: DateTime
   description: String
-  from: PathCreateNestedOneWithoutFromInput
+  from: PathCreateNestedManyWithoutFromInput
   name: String!
-  to: PathCreateNestedOneWithoutToInput
+  to: PathCreateNestedManyWithoutToInput
   trip: TripCreateNestedOneWithoutWaypointsInput
   type: WaypointType
   updatedAt: DateTime
@@ -959,7 +988,7 @@ input WaypointCreateWithoutFromInput {
   deletedAt: DateTime
   description: String
   name: String!
-  to: PathCreateNestedOneWithoutToInput
+  to: PathCreateNestedManyWithoutToInput
   trip: TripCreateNestedOneWithoutWaypointsInput
   type: WaypointType
   updatedAt: DateTime
@@ -969,7 +998,7 @@ input WaypointCreateWithoutToInput {
   createdAt: DateTime
   deletedAt: DateTime
   description: String
-  from: PathCreateNestedOneWithoutFromInput
+  from: PathCreateNestedManyWithoutFromInput
   name: String!
   trip: TripCreateNestedOneWithoutWaypointsInput
   type: WaypointType
@@ -980,9 +1009,9 @@ input WaypointCreateWithoutTripInput {
   createdAt: DateTime
   deletedAt: DateTime
   description: String
-  from: PathCreateNestedOneWithoutFromInput
+  from: PathCreateNestedManyWithoutFromInput
   name: String!
-  to: PathCreateNestedOneWithoutToInput
+  to: PathCreateNestedManyWithoutToInput
   type: WaypointType
   updatedAt: DateTime
 }
@@ -999,7 +1028,6 @@ input WaypointOrderByInput {
   description: SortOrder
   id: SortOrder
   name: SortOrder
-  to: PathOrderByInput
   trip: TripOrderByInput
   tripId: SortOrder
   type: SortOrder
@@ -1031,9 +1059,9 @@ input WaypointUpdateInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   deletedAt: NullableDateTimeFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
-  from: PathUpdateOneWithoutFromInput
+  from: PathUpdateManyWithoutFromInput
   name: StringFieldUpdateOperationsInput
-  to: PathUpdateOneWithoutToInput
+  to: PathUpdateManyWithoutToInput
   trip: TripUpdateOneWithoutWaypointsInput
   type: EnumWaypointTypeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -1096,7 +1124,7 @@ input WaypointUpdateWithoutFromInput {
   deletedAt: NullableDateTimeFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
-  to: PathUpdateOneWithoutToInput
+  to: PathUpdateManyWithoutToInput
   trip: TripUpdateOneWithoutWaypointsInput
   type: EnumWaypointTypeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -1106,7 +1134,7 @@ input WaypointUpdateWithoutToInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   deletedAt: NullableDateTimeFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
-  from: PathUpdateOneWithoutFromInput
+  from: PathUpdateManyWithoutFromInput
   name: StringFieldUpdateOperationsInput
   trip: TripUpdateOneWithoutWaypointsInput
   type: EnumWaypointTypeFieldUpdateOperationsInput
@@ -1117,9 +1145,9 @@ input WaypointUpdateWithoutTripInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   deletedAt: NullableDateTimeFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
-  from: PathUpdateOneWithoutFromInput
+  from: PathUpdateManyWithoutFromInput
   name: StringFieldUpdateOperationsInput
-  to: PathUpdateOneWithoutToInput
+  to: PathUpdateManyWithoutToInput
   type: EnumWaypointTypeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
@@ -1147,10 +1175,10 @@ input WaypointWhereInput {
   createdAt: DateTimeFilter
   deletedAt: DateTimeNullableFilter
   description: StringNullableFilter
-  from: PathWhereInput
+  from: PathListRelationFilter
   id: IntFilter
   name: StringFilter
-  to: PathWhereInput
+  to: PathListRelationFilter
   trip: TripWhereInput
   tripId: IntNullableFilter
   type: EnumWaypointTypeFilter

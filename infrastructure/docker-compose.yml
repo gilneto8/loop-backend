@@ -11,7 +11,6 @@ services:
       - ALLOW_IP_RANGE=0.0.0.0/0
     ports:
       - 5432:5432
-    restart: on-failure
     volumes:
       - loop-database-volume:/var/lib/postgresql
 
