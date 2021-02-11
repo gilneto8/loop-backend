@@ -11,5 +11,9 @@ export default class updatePathDto implements TUpdatePath {
   description:
     | Unnull<NexusGenInputs['StringFieldUpdateOperationsInput']>
     | undefined;
-  type!: Unnull<NexusGenInputs['EnumPathTypeFieldUpdateOperationsInput']>;
+  type!:
+    | Unnull<NexusGenInputs['EnumPathTypeFieldUpdateOperationsInput']>
+    | undefined;
+  fromId!: NexusGenInputs['WaypointWhereUniqueInput']['id'] | undefined;
+  toId!: NexusGenInputs['WaypointWhereUniqueInput']['id'] | undefined;
 }

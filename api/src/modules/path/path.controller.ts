@@ -12,7 +12,7 @@ import createPathDto from './dtos/createPath.dto';
 import getPathDto from '../path/dtos/getPath.dto';
 import updatePathDto from '../path/dtos/updatePath.dto';
 
-@Controller('path')
+@Controller('paths')
 export class PathController {
   constructor(private pathService: PathService) {}
 

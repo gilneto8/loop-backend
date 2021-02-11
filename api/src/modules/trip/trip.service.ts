@@ -13,10 +13,18 @@ import getTripDto from './dtos/getTrip.dto';
 export class TripService {
   constructor(private prisma: PrismaService) {}
 
-  async get(id: getTripDto['id']) {
+  async get(
+    id: getTripDto['id'],
+    deletedWaypoints = true,
+    deletedPaths = true,
+  ) {
     const trip = await this.prisma.trip.findUnique({
       where: { id },
-      include: { waypoints: true, paths: true },
+      include: {
+        waypoints: (() =>
+          deletedWaypoints ? {} : { where: { deletedAt: null } })(),
+        paths: (() => (deletedPaths ? {} : { where: { deletedAt: null } }))(),
+      },
     });
     if (!trip)
       throw new HttpException(
@@ -30,8 +38,7 @@ export class TripService {
     const trips = this.prisma.trip.findMany({
       where: {
         ownerId,
-        ...(() =>
-          includeDeleted ? {} : { NOT: { deletedAt: { not: null } } })(),
+        ...(() => (includeDeleted ? {} : { deletedAt: null }))(),
       },
       include: { waypoints: true, paths: true },
     });
