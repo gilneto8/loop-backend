@@ -3,7 +3,7 @@ import { PrismaService } from '../../internals/prisma/prisma.service';
 import createWaypointDto from './dtos/createWaypoint.dto';
 import getWaypointDto from './dtos/getWaypoint.dto';
 import updateWaypointDto from './dtos/updateWaypoint.dto';
-import deleteWaypointDto from './dtos/deleteWaypoint.dto';
+import deleteWaypointDto, { DeleteOpts } from './dtos/deleteWaypoint.dto';
 import { ErrorMessages } from '../../utils/enums/error-messages';
 import { PostgresErrorCodes } from '../../utils/enums/postgres-error-codes';
 import moment from 'moment';
@@ -55,7 +55,7 @@ export class WaypointService {
     }
   }
 
-  async delete(params: deleteWaypointDto) {
+  async delete(params: deleteWaypointDto, opts?: DeleteOpts) {
     const waypoint = await this.prisma.waypoint.findUnique({
       where: { ...params },
     });

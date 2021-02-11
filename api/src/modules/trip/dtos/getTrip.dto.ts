@@ -14,3 +14,9 @@ export default class getTripDto implements TTrip {
   deletedAt!: NexusGenScalars['DateTime'] | null;
   ownerId!: number;
 }
+
+export type GetOpts = {
+  includeDeletedTrips?: boolean;
+  includeDeletedWaypoints?: boolean;
+  includeDeletedPaths?: boolean;
+};

@@ -5,3 +5,7 @@ type TDeleteWaypoint = NexusGenArgTypes['Mutation']['deleteOneWaypoint']['where'
 export default class deleteWaypointDto implements TDeleteWaypoint {
   id!: number;
 }
+
+export type DeleteOpts = {
+  deletePaths?: boolean;
+};

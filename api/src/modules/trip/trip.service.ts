@@ -7,23 +7,22 @@ import updateTripDto from './dtos/updateTrip.dto';
 import deleteTripDto from './dtos/deleteTrip.dto';
 import getAccountDto from '../account/dtos/getAccount.dto';
 import moment from 'moment';
-import getTripDto from './dtos/getTrip.dto';
+import getTripDto, { GetOpts } from './dtos/getTrip.dto';
 
 @Injectable()
 export class TripService {
   constructor(private prisma: PrismaService) {}
 
-  async get(
-    id: getTripDto['id'],
-    deletedWaypoints = true,
-    deletedPaths = true,
-  ) {
+  async get(id: getTripDto['id'], opts?: GetOpts) {
     const trip = await this.prisma.trip.findUnique({
       where: { id },
       include: {
         waypoints: (() =>
-          deletedWaypoints ? {} : { where: { deletedAt: null } })(),
-        paths: (() => (deletedPaths ? {} : { where: { deletedAt: null } }))(),
+          opts?.includeDeletedWaypoints
+            ? {}
+            : { where: { deletedAt: null } })(),
+        paths: (() =>
+          opts?.includeDeletedPaths ? {} : { where: { deletedAt: null } })(),
       },
     });
     if (!trip)
@@ -34,13 +33,20 @@ export class TripService {
     return trip;
   }
 
-  async getAll(ownerId: getAccountDto['id'], includeDeleted = true) {
+  async getAll(ownerId: getAccountDto['id'], opts?: GetOpts) {
     const trips = this.prisma.trip.findMany({
       where: {
         ownerId,
-        ...(() => (includeDeleted ? {} : { deletedAt: null }))(),
+        ...(() => (opts?.includeDeletedTrips ? {} : { deletedAt: null }))(),
       },
-      include: { waypoints: true, paths: true },
+      include: {
+        waypoints: (() =>
+          opts?.includeDeletedWaypoints
+            ? {}
+            : { where: { deletedAt: null } })(),
+        paths: (() =>
+          opts?.includeDeletedPaths ? {} : { where: { deletedAt: null } })(),
+      },
     });
     if (!trips)
       throw new HttpException(
