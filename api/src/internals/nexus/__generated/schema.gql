@@ -167,6 +167,36 @@ input EnumWaypointTypeFilter {
   notIn: [WaypointType!]
 }
 
+input FloatFieldUpdateOperationsInput {
+  decrement: Float
+  divide: Float
+  increment: Float
+  multiply: Float
+  set: Float
+}
+
+input FloatFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: NestedFloatFilter
+  notIn: [Float!]
+}
+
+input FloatNullableFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: NestedFloatNullableFilter
+  notIn: [Float!]
+}
+
 input IntFilter {
   equals: Int
   gt: Int
@@ -240,6 +270,28 @@ input NestedEnumWaypointTypeFilter {
   notIn: [WaypointType!]
 }
 
+input NestedFloatFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: NestedFloatFilter
+  notIn: [Float!]
+}
+
+input NestedFloatNullableFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: NestedFloatNullableFilter
+  notIn: [Float!]
+}
+
 input NestedIntFilter {
   equals: Int
   gt: Int
@@ -292,6 +344,14 @@ input NestedStringNullableFilter {
 
 input NullableDateTimeFieldUpdateOperationsInput {
   set: DateTime
+}
+
+input NullableFloatFieldUpdateOperationsInput {
+  decrement: Float
+  divide: Float
+  increment: Float
+  multiply: Float
+  set: Float
 }
 
 input NullableStringFieldUpdateOperationsInput {
@@ -925,11 +985,14 @@ input TripWhereUniqueInput {
 }
 
 type Waypoint {
+  altitude: Float
   createdAt: DateTime
   deletedAt: DateTime
   description: String
   from(after: PathWhereUniqueInput, before: PathWhereUniqueInput, first: Int, last: Int): [Path!]!
   id: Int
+  latitude: Float
+  longitude: Float
   name: String
   to(after: PathWhereUniqueInput, before: PathWhereUniqueInput, first: Int, last: Int): [Path!]!
   trip: Trip
@@ -939,10 +1002,13 @@ type Waypoint {
 }
 
 input WaypointCreateInput {
+  altitude: Float
   createdAt: DateTime
   deletedAt: DateTime
   description: String
   from: PathCreateNestedManyWithoutFromInput
+  latitude: Float!
+  longitude: Float!
   name: String!
   to: PathCreateNestedManyWithoutToInput
   trip: TripCreateNestedOneWithoutWaypointsInput
@@ -984,9 +1050,12 @@ input WaypointCreateOrConnectWithouttripInput {
 }
 
 input WaypointCreateWithoutFromInput {
+  altitude: Float
   createdAt: DateTime
   deletedAt: DateTime
   description: String
+  latitude: Float!
+  longitude: Float!
   name: String!
   to: PathCreateNestedManyWithoutToInput
   trip: TripCreateNestedOneWithoutWaypointsInput
@@ -995,10 +1064,13 @@ input WaypointCreateWithoutFromInput {
 }
 
 input WaypointCreateWithoutToInput {
+  altitude: Float
   createdAt: DateTime
   deletedAt: DateTime
   description: String
   from: PathCreateNestedManyWithoutFromInput
+  latitude: Float!
+  longitude: Float!
   name: String!
   trip: TripCreateNestedOneWithoutWaypointsInput
   type: WaypointType
@@ -1006,10 +1078,13 @@ input WaypointCreateWithoutToInput {
 }
 
 input WaypointCreateWithoutTripInput {
+  altitude: Float
   createdAt: DateTime
   deletedAt: DateTime
   description: String
   from: PathCreateNestedManyWithoutFromInput
+  latitude: Float!
+  longitude: Float!
   name: String!
   to: PathCreateNestedManyWithoutToInput
   type: WaypointType
@@ -1023,10 +1098,13 @@ input WaypointListRelationFilter {
 }
 
 input WaypointOrderByInput {
+  altitude: SortOrder
   createdAt: SortOrder
   deletedAt: SortOrder
   description: SortOrder
   id: SortOrder
+  latitude: SortOrder
+  longitude: SortOrder
   name: SortOrder
   trip: TripOrderByInput
   tripId: SortOrder
@@ -1038,10 +1116,13 @@ input WaypointScalarWhereInput {
   AND: [WaypointScalarWhereInput!]
   NOT: [WaypointScalarWhereInput!]
   OR: [WaypointScalarWhereInput!]
+  altitude: FloatNullableFilter
   createdAt: DateTimeFilter
   deletedAt: DateTimeNullableFilter
   description: StringNullableFilter
   id: IntFilter
+  latitude: FloatFilter
+  longitude: FloatFilter
   name: StringFilter
   tripId: IntNullableFilter
   type: EnumWaypointTypeFilter
@@ -1056,10 +1137,13 @@ enum WaypointType {
 }
 
 input WaypointUpdateInput {
+  altitude: NullableFloatFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   deletedAt: NullableDateTimeFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
   from: PathUpdateManyWithoutFromInput
+  latitude: FloatFieldUpdateOperationsInput
+  longitude: FloatFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   to: PathUpdateManyWithoutToInput
   trip: TripUpdateOneWithoutWaypointsInput
@@ -1068,9 +1152,12 @@ input WaypointUpdateInput {
 }
 
 input WaypointUpdateManyMutationInput {
+  altitude: NullableFloatFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   deletedAt: NullableDateTimeFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
+  latitude: FloatFieldUpdateOperationsInput
+  longitude: FloatFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   type: EnumWaypointTypeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -1120,9 +1207,12 @@ input WaypointUpdateWithWhereUniqueWithoutTripInput {
 }
 
 input WaypointUpdateWithoutFromInput {
+  altitude: NullableFloatFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   deletedAt: NullableDateTimeFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
+  latitude: FloatFieldUpdateOperationsInput
+  longitude: FloatFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   to: PathUpdateManyWithoutToInput
   trip: TripUpdateOneWithoutWaypointsInput
@@ -1131,10 +1221,13 @@ input WaypointUpdateWithoutFromInput {
 }
 
 input WaypointUpdateWithoutToInput {
+  altitude: NullableFloatFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   deletedAt: NullableDateTimeFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
   from: PathUpdateManyWithoutFromInput
+  latitude: FloatFieldUpdateOperationsInput
+  longitude: FloatFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   trip: TripUpdateOneWithoutWaypointsInput
   type: EnumWaypointTypeFieldUpdateOperationsInput
@@ -1142,10 +1235,13 @@ input WaypointUpdateWithoutToInput {
 }
 
 input WaypointUpdateWithoutTripInput {
+  altitude: NullableFloatFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   deletedAt: NullableDateTimeFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
   from: PathUpdateManyWithoutFromInput
+  latitude: FloatFieldUpdateOperationsInput
+  longitude: FloatFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   to: PathUpdateManyWithoutToInput
   type: EnumWaypointTypeFieldUpdateOperationsInput
@@ -1172,11 +1268,14 @@ input WaypointWhereInput {
   AND: [WaypointWhereInput!]
   NOT: [WaypointWhereInput!]
   OR: [WaypointWhereInput!]
+  altitude: FloatNullableFilter
   createdAt: DateTimeFilter
   deletedAt: DateTimeNullableFilter
   description: StringNullableFilter
   from: PathListRelationFilter
   id: IntFilter
+  latitude: FloatFilter
+  longitude: FloatFilter
   name: StringFilter
   to: PathListRelationFilter
   trip: TripWhereInput

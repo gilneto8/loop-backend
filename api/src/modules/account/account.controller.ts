@@ -34,7 +34,9 @@ export class AccountController {
     @Param('id', new ParseIntPipe()) id: getAccountDto['id'],
     @Request() req: { body: { includeDeleted: boolean } },
   ) {
-    return this.tripService.getAll(id, req.body.includeDeleted);
+    return this.tripService.getAll(id, {
+      includeDeletedTrips: req.body.includeDeleted,
+    });
   }
 
   @Put()

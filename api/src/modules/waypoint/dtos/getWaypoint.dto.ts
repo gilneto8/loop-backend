@@ -15,4 +15,7 @@ export default class getWaypointDto implements TWaypoint {
   createdAt!: NexusGenScalars['DateTime'];
   updatedAt!: NexusGenScalars['DateTime'];
   deletedAt!: NexusGenScalars['DateTime'] | null;
+  latitude!: number;
+  longitude!: number;
+  altitude!: number | null;
 }

@@ -68,6 +68,9 @@ const Waypoint = objectType<'Waypoint'>({
     t.model.from();
     t.model.trip();
     t.model.tripId();
+    t.model.altitude();
+    t.model.latitude();
+    t.model.longitude();
   },
 });
 

@@ -12,4 +12,13 @@ export default class updateWaypointDto implements TUpdateWaypoint {
     | Unnull<NexusGenInputs['StringFieldUpdateOperationsInput']>
     | undefined;
   type!: Unnull<NexusGenInputs['EnumWaypointTypeFieldUpdateOperationsInput']>;
+  latitude!:
+    | Unnull<NexusGenInputs['FloatFieldUpdateOperationsInput']>
+    | undefined;
+  longitude!:
+    | Unnull<NexusGenInputs['FloatFieldUpdateOperationsInput']>
+    | undefined;
+  altitude!:
+    | Unnull<NexusGenInputs['NullableFloatFieldUpdateOperationsInput']>
+    | undefined;
 }

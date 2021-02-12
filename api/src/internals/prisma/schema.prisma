@@ -8,6 +8,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["nativeTypes"]
 }
 
 model Account {
@@ -46,6 +47,9 @@ model Waypoint {
   from            Path[]            @relation("From")
   trip            Trip?             @relation(fields: [tripId], references: [id])
   tripId          Int?
+  latitude        Float
+  longitude       Float
+  altitude        Float?
 }
 
 enum WaypointType {

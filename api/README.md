@@ -34,9 +34,12 @@ $ npm run test:cov
 
 ```bash
 # create first migration
-$ npx prisma migrate dev --name init --schema=src/prisma/schema.prisma --preview-feature
+$ npx prisma migrate dev --name init --schema=src/internals/prisma/schema.prisma --preview-feature
 
 # update prisma client
-$ npx prisma generate --schema=src/prisma/schema.prisma
+$ npx prisma generate --schema=src/internals/prisma/schema.prisma --preview-feature
+
+# get db up to date
+$ npx prisma db push --schema=src/internals/prisma/schema.prisma --preview-feature
 
 ```

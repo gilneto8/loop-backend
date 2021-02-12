@@ -11,4 +11,7 @@ export default class createWaypointDto implements TCreateWaypoint {
   name!: string;
   tripId!: getTripDto['id'];
   type!: NexusGenEnums['WaypointType'];
+  longitude!: number;
+  latitude!: number;
+  altitude!: number | null;
 }
