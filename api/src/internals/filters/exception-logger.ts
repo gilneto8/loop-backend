@@ -1,11 +1,4 @@
-import {
-  ArgumentsHost,
-  Catch,
-  ExceptionFilter,
-  HttpException,
-  HttpStatus,
-  Logger,
-} from '@nestjs/common';
+import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { Request, Response } from 'express';
 import moment from 'moment';
 import { ErrorMessages } from '../../utils/enums/error-messages';
@@ -44,9 +37,7 @@ export class ExceptionLoggerFilter implements ExceptionFilter {
       e.message = e.message.message;
     }
 
-    const entry = clc.red(
-      `${e.status} ${statusKey} [${now}] ${method} ${url} "${e.message}"`,
-    );
+    const entry = clc.red(`${e.status} ${statusKey} [${now}] ${method} ${url} "${e.message}"`);
     this.logger.log(entry);
 
     response.status(e.status).json({

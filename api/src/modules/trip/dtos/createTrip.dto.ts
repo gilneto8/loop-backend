@@ -1,7 +1,4 @@
-import {
-  NexusGenArgTypes,
-  NexusGenScalars,
-} from '../../../internals/nexus/__generated/nexus-typegen';
+import { NexusGenArgTypes, NexusGenScalars } from '../../../internals/nexus/__generated/nexus-typegen';
 
 type TCreateTrip = NexusGenArgTypes['Mutation']['createOneTrip']['data'];
 

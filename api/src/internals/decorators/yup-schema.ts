@@ -11,5 +11,4 @@ export const YUP_SCHEMA_KEY = 'yup-schema';
 */
 export type SupportedSchema = Schema<object>;
 
-export const YupSchema = (schema: SupportedSchema) =>
-  SetMetadata(YUP_SCHEMA_KEY, schema);
+export const YupSchema = (schema: SupportedSchema) => SetMetadata(YUP_SCHEMA_KEY, schema);

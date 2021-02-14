@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Delete,
-  Param,
-  ParseIntPipe,
-  Post,
-  Put,
-  Request,
-} from '@nestjs/common';
+import { Controller, Delete, Param, ParseIntPipe, Post, Put, Request } from '@nestjs/common';
 import { PathService } from './path.service';
 import createPathDto from './dtos/createPath.dto';
 import getPathDto from '../path/dtos/getPath.dto';
@@ -22,10 +14,7 @@ export class PathController {
   }
 
   @Put(':id')
-  async updatePath(
-    @Param('id', new ParseIntPipe()) id: getPathDto['id'],
-    @Request() req: { body: updatePathDto },
-  ) {
+  async updatePath(@Param('id', new ParseIntPipe()) id: getPathDto['id'], @Request() req: { body: updatePathDto }) {
     return this.pathService.update(id, req.body);
   }
 

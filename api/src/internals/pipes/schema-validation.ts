@@ -1,9 +1,4 @@
-import {
-  ArgumentMetadata,
-  BadRequestException,
-  Injectable,
-  PipeTransform,
-} from '@nestjs/common';
+import { ArgumentMetadata, BadRequestException, Injectable, PipeTransform } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { SupportedSchema, YUP_SCHEMA_KEY } from '../decorators/yup-schema';
 import { ValidationError } from 'yup';
@@ -16,12 +11,8 @@ export class SchemaValidationPipe implements PipeTransform<unknown> {
     const metatype = metadata.metatype;
     if (!metatype) throw new Error('No metatype');
 
-    const schema = this.reflector.get<SupportedSchema | undefined>(
-      YUP_SCHEMA_KEY,
-      metatype,
-    );
-    if (!schema)
-      throw new Error(`No yup schema assigned to metatype ${metatype.name}`);
+    const schema = this.reflector.get<SupportedSchema | undefined>(YUP_SCHEMA_KEY, metatype);
+    if (!schema) throw new Error(`No yup schema assigned to metatype ${metatype.name}`);
 
     try {
       return schema.validateSync(value, {

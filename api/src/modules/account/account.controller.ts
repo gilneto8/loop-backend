@@ -1,14 +1,4 @@
-import {
-  Controller,
-  Get,
-  HttpStatus,
-  Param,
-  ParseIntPipe,
-  Post,
-  Put,
-  Request,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Controller, Get, HttpStatus, Param, ParseIntPipe, Post, Put, Request, UseInterceptors } from '@nestjs/common';
 import { AccountService } from './account.service';
 import getAccountDto from './dtos/getAccount.dto';
 import { AccountEntity } from '../../internals/decorators/account-entity';
@@ -18,10 +8,7 @@ import { TripService } from '../trip/trip.service';
 
 @Controller('accounts')
 export class AccountController {
-  constructor(
-    private accountService: AccountService,
-    private tripService: TripService,
-  ) {}
+  constructor(private accountService: AccountService, private tripService: TripService) {}
 
   @Get(':id')
   @UseInterceptors(RemovePasswordInterceptor)
@@ -30,10 +17,7 @@ export class AccountController {
   }
 
   @Get(':id/trips')
-  getAccountTrips(
-    @Param('id', new ParseIntPipe()) id: getAccountDto['id'],
-    @Request() req: { body: { includeDeleted: boolean } },
-  ) {
+  getAccountTrips(@Param('id', new ParseIntPipe()) id: getAccountDto['id'], @Request() req: { body: { includeDeleted: boolean } }) {
     return this.tripService.getAll(id, {
       includeDeletedTrips: req.body.includeDeleted,
     });
@@ -41,10 +25,7 @@ export class AccountController {
 
   @Put()
   @UseInterceptors(RemovePasswordInterceptor)
-  updateAccount(
-    @AccountEntity() account: getAccountDto,
-    @Request() req: { body: updateAccountDto },
-  ) {
+  updateAccount(@AccountEntity() account: getAccountDto, @Request() req: { body: updateAccountDto }) {
     return this.accountService.update(account.id, req.body);
   }
 }

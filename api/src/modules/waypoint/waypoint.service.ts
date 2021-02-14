@@ -13,24 +13,14 @@ export class WaypointService {
   constructor(private prisma: PrismaService) {}
 
   async create(params: createWaypointDto) {
-    if (!params.tripId)
-      throw new HttpException(
-        ErrorMessages.TRIP_ID_NOT_FOUND,
-        HttpStatus.NOT_FOUND,
-      );
+    if (!params.tripId) throw new HttpException(ErrorMessages.TRIP_ID_NOT_FOUND, HttpStatus.NOT_FOUND);
     try {
       return this.prisma.waypoint.create({ data: { ...params } });
     } catch (err) {
       if (err?.code === PostgresErrorCodes.UniqueViolation) {
-        throw new HttpException(
-          ErrorMessages.TRIP_ALREADY_EXISTS,
-          HttpStatus.CONFLICT,
-        );
+        throw new HttpException(ErrorMessages.TRIP_ALREADY_EXISTS, HttpStatus.CONFLICT);
       }
-      throw new HttpException(
-        ErrorMessages.UNKNOWN,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException(ErrorMessages.UNKNOWN, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -43,15 +33,9 @@ export class WaypointService {
       });
     } catch (err) {
       if (err?.code === PostgresErrorCodes.RecordNotFound) {
-        throw new HttpException(
-          ErrorMessages.WAYPOINT_ID_NOT_FOUND,
-          HttpStatus.CONFLICT,
-        );
+        throw new HttpException(ErrorMessages.WAYPOINT_ID_NOT_FOUND, HttpStatus.CONFLICT);
       }
-      throw new HttpException(
-        ErrorMessages.UNKNOWN,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException(ErrorMessages.UNKNOWN, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -59,11 +43,7 @@ export class WaypointService {
     const waypoint = await this.prisma.waypoint.findUnique({
       where: { ...params },
     });
-    if (!waypoint)
-      throw new HttpException(
-        ErrorMessages.WAYPOINT_ID_NOT_FOUND,
-        HttpStatus.NOT_FOUND,
-      );
+    if (!waypoint) throw new HttpException(ErrorMessages.WAYPOINT_ID_NOT_FOUND, HttpStatus.NOT_FOUND);
     try {
       if (waypoint.deletedAt === null)
         return this.prisma.waypoint.update({
@@ -72,10 +52,7 @@ export class WaypointService {
         });
       else return this.prisma.waypoint.delete({ where: { ...params } });
     } catch (err) {
-      throw new HttpException(
-        ErrorMessages.UNKNOWN,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException(ErrorMessages.UNKNOWN, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

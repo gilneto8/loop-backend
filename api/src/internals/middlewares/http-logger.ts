@@ -22,9 +22,7 @@ export class HTTPLogger implements NestMiddleware {
       const date = then.format('DD/MMM/YYYY:HH:mm:ss ZZ');
 
       // NCSA Common log format
-      this.logger.log(
-        `${ip} ${user} [${date}] "${method} ${url} HTTP/${protocol}" ${code} ${length} ${ms}`,
-      );
+      this.logger.log(`${ip} ${user} [${date}] "${method} ${url} HTTP/${protocol}" ${code} ${length} ${ms}`);
     });
 
     next();

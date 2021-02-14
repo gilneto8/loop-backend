@@ -1,10 +1,4 @@
-import {
-  Controller,
-  Post,
-  Request,
-  UseGuards,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Controller, Post, Request, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Public } from '../decorators/public-route';
 import { LocalAuthGuard } from './strategies/local/local.guard';
@@ -20,18 +14,14 @@ export class AuthController {
   @Public()
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(
-    @Request() req: { body: TLoginCredentials; user: getAccountDto },
-  ) {
+  async login(@Request() req: { body: TLoginCredentials; user: getAccountDto }) {
     return this.authService.login(req.user);
   }
 
   @Public()
   @UseInterceptors(RemovePasswordInterceptor)
   @Post('register')
-  async register(
-    @Request() req: { body: createAccountDto },
-  ): Promise<getAccountDto> {
+  async register(@Request() req: { body: createAccountDto }): Promise<getAccountDto> {
     return this.authService.register(req.body);
   }
 }

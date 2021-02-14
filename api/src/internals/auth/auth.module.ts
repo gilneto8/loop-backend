@@ -20,12 +20,6 @@ import { AuthController } from './auth.controller';
     }),
   ],
   controllers: [AuthController],
-  providers: [
-    AuthService,
-    AccountService,
-    PrismaService,
-    LocalStrategy,
-    JwtStrategy,
-  ],
+  providers: [AuthService, AccountService, PrismaService, LocalStrategy, JwtStrategy],
 })
 export class AuthModule {}

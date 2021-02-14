@@ -16,10 +16,7 @@ export class PathService {
     try {
       return this.prisma.path.create({ data: { ...params } });
     } catch (err) {
-      throw new HttpException(
-        ErrorMessages.UNKNOWN,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException(ErrorMessages.UNKNOWN, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -32,15 +29,9 @@ export class PathService {
       });
     } catch (err) {
       if (err?.code === PostgresErrorCodes.RecordNotFound) {
-        throw new HttpException(
-          ErrorMessages.WAYPOINT_ID_NOT_FOUND,
-          HttpStatus.CONFLICT,
-        );
+        throw new HttpException(ErrorMessages.WAYPOINT_ID_NOT_FOUND, HttpStatus.CONFLICT);
       }
-      throw new HttpException(
-        ErrorMessages.UNKNOWN,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException(ErrorMessages.UNKNOWN, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -48,11 +39,7 @@ export class PathService {
     const path = await this.prisma.path.findUnique({
       where: { ...params },
     });
-    if (!path)
-      throw new HttpException(
-        ErrorMessages.WAYPOINT_ID_NOT_FOUND,
-        HttpStatus.NOT_FOUND,
-      );
+    if (!path) throw new HttpException(ErrorMessages.WAYPOINT_ID_NOT_FOUND, HttpStatus.NOT_FOUND);
     try {
       if (path.deletedAt === null)
         return this.prisma.path.update({
@@ -61,10 +48,7 @@ export class PathService {
         });
       else return this.prisma.path.delete({ where: { ...params } });
     } catch (err) {
-      throw new HttpException(
-        ErrorMessages.UNKNOWN,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException(ErrorMessages.UNKNOWN, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

@@ -13,8 +13,7 @@ declare const module: any;
 const schemaPath = process.env.SCHEMA_PATH as string;
 
 async function bootstrap() {
-  const closingPromise = (module.hot?.data as ModuleHotData | undefined)
-    ?.closingPromise;
+  const closingPromise = (module.hot?.data as ModuleHotData | undefined)?.closingPromise;
   if (closingPromise) {
     await closingPromise;
   }
@@ -36,7 +35,5 @@ bootstrap()
     process.exit(1);
   })
   .finally(() => {
-    watch(schemaPath, () =>
-      execSync(getAutoMigrationCommand(schemaPath), { stdio: 'inherit' }),
-    );
+    watch(schemaPath, () => execSync(getAutoMigrationCommand(schemaPath), { stdio: 'inherit' }));
   });

@@ -1,10 +1,4 @@
-import {
-  Logger,
-  MiddlewareConsumer,
-  Module,
-  NestModule,
-  OnApplicationShutdown,
-} from '@nestjs/common';
+import { Logger, MiddlewareConsumer, Module, NestModule, OnApplicationShutdown } from '@nestjs/common';
 import internals from './internals';
 import modules from './modules';
 import { HTTPLogger } from './internals/middlewares/http-logger';
@@ -23,8 +17,6 @@ export class AppModule implements NestModule, OnApplicationShutdown {
   }
 
   onApplicationShutdown(signal?: string): void {
-    this.logger.log(
-      `Application shutting down${signal ? ` with signal ${signal}` : ''}.`,
-    );
+    this.logger.log(`Application shutting down${signal ? ` with signal ${signal}` : ''}.`);
   }
 }

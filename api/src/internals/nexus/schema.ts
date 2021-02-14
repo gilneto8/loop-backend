@@ -143,10 +143,7 @@ export const schema = makeSchema({
   types: [Account, Trip, Waypoint, Path, Query, Mutation],
   plugins: [nexusPrisma({ experimentalCRUD: true })],
   outputs: {
-    typegen: join(
-      process.cwd(),
-      'src/internals/nexus/__generated/nexus-typegen.d.ts',
-    ),
+    typegen: join(process.cwd(), 'src/internals/nexus/__generated/nexus-typegen.d.ts'),
     schema: join(process.cwd(), 'src/internals/nexus/__generated/schema.gql'),
   },
   contextType: {

@@ -1,7 +1,4 @@
-import {
-  NexusGenArgTypes,
-  NexusGenEnums,
-} from '../../../internals/nexus/__generated/nexus-typegen';
+import { NexusGenArgTypes, NexusGenEnums } from '../../../internals/nexus/__generated/nexus-typegen';
 import getWaypointDto from '../../waypoint/dtos/getWaypoint.dto';
 import getTripDto from '../../trip/dtos/getTrip.dto';
 import { YupSchema } from '../../../internals/decorators/yup-schema';
@@ -13,10 +10,7 @@ type TCreatePath = NexusGenArgTypes['Mutation']['createOnePath']['data'];
   yup
     .object<createPathDto>({
       name: yup.string().required(),
-      type: yup
-        .string()
-        .oneOf(['BOAT', 'CAR', 'PEDESTRIAN', 'PLANE', 'TRAIN'])
-        .required(),
+      type: yup.string().oneOf(['BOAT', 'CAR', 'PEDESTRIAN', 'PLANE', 'TRAIN']).required(),
       description: yup.string(),
       tripId: yup.number().required(),
       fromId: yup.number().required(),

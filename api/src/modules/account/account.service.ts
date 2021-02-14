@@ -12,21 +12,13 @@ export class AccountService {
 
   async validate(email: getAccountDto['email']) {
     const account = await this.prisma.account.findUnique({ where: { email } });
-    if (!account)
-      throw new HttpException(
-        ErrorMessages.ACCOUNT_ID_NOT_FOUND,
-        HttpStatus.NOT_FOUND,
-      );
+    if (!account) throw new HttpException(ErrorMessages.ACCOUNT_ID_NOT_FOUND, HttpStatus.NOT_FOUND);
     return account;
   }
 
   async get(id: getAccountDto['id']) {
     const account = await this.prisma.account.findUnique({ where: { id } });
-    if (!account)
-      throw new HttpException(
-        ErrorMessages.ACCOUNT_ID_NOT_FOUND,
-        HttpStatus.NOT_FOUND,
-      );
+    if (!account) throw new HttpException(ErrorMessages.ACCOUNT_ID_NOT_FOUND, HttpStatus.NOT_FOUND);
     return account;
   }
 
@@ -35,15 +27,9 @@ export class AccountService {
       return this.prisma.account.create({ data: { ...params } });
     } catch (err) {
       if (err?.code === PostgresErrorCodes.UniqueViolation) {
-        throw new HttpException(
-          ErrorMessages.EMAIL_ALREADY_EXISTS,
-          HttpStatus.CONFLICT,
-        );
+        throw new HttpException(ErrorMessages.EMAIL_ALREADY_EXISTS, HttpStatus.CONFLICT);
       }
-      throw new HttpException(
-        ErrorMessages.UNKNOWN,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException(ErrorMessages.UNKNOWN, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -56,15 +42,9 @@ export class AccountService {
       });
     } catch (err) {
       if (err?.code === PostgresErrorCodes.RecordNotFound) {
-        throw new HttpException(
-          ErrorMessages.ACCOUNT_ID_NOT_FOUND,
-          HttpStatus.CONFLICT,
-        );
+        throw new HttpException(ErrorMessages.ACCOUNT_ID_NOT_FOUND, HttpStatus.CONFLICT);
       }
-      throw new HttpException(
-        ErrorMessages.UNKNOWN,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException(ErrorMessages.UNKNOWN, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

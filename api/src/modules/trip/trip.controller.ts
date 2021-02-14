@@ -1,13 +1,4 @@
-import {
-  Controller,
-  Delete,
-  Get,
-  Param,
-  ParseIntPipe,
-  Post,
-  Put,
-  Request,
-} from '@nestjs/common';
+import { Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Request } from '@nestjs/common';
 import { TripService } from './trip.service';
 import updateTripDto from './dtos/updateTrip.dto';
 import getAccountDto from '../account/dtos/getAccount.dto';
@@ -25,18 +16,12 @@ export class TripController {
   }
 
   @Post()
-  async createTrip(
-    @AccountEntity() { id }: getAccountDto,
-    @Request() req: { body: createTripDto },
-  ) {
+  async createTrip(@AccountEntity() { id }: getAccountDto, @Request() req: { body: createTripDto }) {
     return this.tripService.create(id, req.body);
   }
 
   @Put(':id')
-  updateTrip(
-    @Param('id', new ParseIntPipe()) id: getTripDto['id'],
-    @Request() req: { body: updateTripDto },
-  ) {
+  updateTrip(@Param('id', new ParseIntPipe()) id: getTripDto['id'], @Request() req: { body: updateTripDto }) {
     return this.tripService.update(id, req.body);
   }
 

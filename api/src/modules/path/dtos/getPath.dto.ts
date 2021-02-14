@@ -1,8 +1,4 @@
-import {
-  NexusGenEnums,
-  NexusGenObjects,
-  NexusGenScalars,
-} from '../../../internals/nexus/__generated/nexus-typegen';
+import { NexusGenEnums, NexusGenObjects, NexusGenScalars } from '../../../internals/nexus/__generated/nexus-typegen';
 
 type TPath = NexusGenObjects['Path'];
 

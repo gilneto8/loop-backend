@@ -17,19 +17,11 @@ export class TripService {
     const trip = await this.prisma.trip.findUnique({
       where: { id },
       include: {
-        waypoints: (() =>
-          opts?.includeDeletedWaypoints
-            ? {}
-            : { where: { deletedAt: null } })(),
-        paths: (() =>
-          opts?.includeDeletedPaths ? {} : { where: { deletedAt: null } })(),
+        waypoints: (() => (opts?.includeDeletedWaypoints ? {} : { where: { deletedAt: null } }))(),
+        paths: (() => (opts?.includeDeletedPaths ? {} : { where: { deletedAt: null } }))(),
       },
     });
-    if (!trip)
-      throw new HttpException(
-        ErrorMessages.TRIP_ID_NOT_FOUND,
-        HttpStatus.NOT_FOUND,
-      );
+    if (!trip) throw new HttpException(ErrorMessages.TRIP_ID_NOT_FOUND, HttpStatus.NOT_FOUND);
     return trip;
   }
 
@@ -40,41 +32,23 @@ export class TripService {
         ...(() => (opts?.includeDeletedTrips ? {} : { deletedAt: null }))(),
       },
       include: {
-        waypoints: (() =>
-          opts?.includeDeletedWaypoints
-            ? {}
-            : { where: { deletedAt: null } })(),
-        paths: (() =>
-          opts?.includeDeletedPaths ? {} : { where: { deletedAt: null } })(),
+        waypoints: (() => (opts?.includeDeletedWaypoints ? {} : { where: { deletedAt: null } }))(),
+        paths: (() => (opts?.includeDeletedPaths ? {} : { where: { deletedAt: null } }))(),
       },
     });
-    if (!trips)
-      throw new HttpException(
-        ErrorMessages.ACCOUNT_ID_NOT_FOUND,
-        HttpStatus.NOT_FOUND,
-      );
+    if (!trips) throw new HttpException(ErrorMessages.ACCOUNT_ID_NOT_FOUND, HttpStatus.NOT_FOUND);
     return trips;
   }
 
   create(ownerId: getAccountDto['id'], params: createTripDto) {
-    if (!ownerId)
-      throw new HttpException(
-        ErrorMessages.ACCOUNT_ID_NOT_FOUND,
-        HttpStatus.NOT_FOUND,
-      );
+    if (!ownerId) throw new HttpException(ErrorMessages.ACCOUNT_ID_NOT_FOUND, HttpStatus.NOT_FOUND);
     try {
       return this.prisma.trip.create({ data: { ownerId, ...params } });
     } catch (err) {
       if (err?.code === PostgresErrorCodes.UniqueViolation) {
-        throw new HttpException(
-          ErrorMessages.TRIP_ALREADY_EXISTS,
-          HttpStatus.CONFLICT,
-        );
+        throw new HttpException(ErrorMessages.TRIP_ALREADY_EXISTS, HttpStatus.CONFLICT);
       }
-      throw new HttpException(
-        ErrorMessages.UNKNOWN,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException(ErrorMessages.UNKNOWN, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -87,25 +61,15 @@ export class TripService {
       });
     } catch (err) {
       if (err?.code === PostgresErrorCodes.RecordNotFound) {
-        throw new HttpException(
-          ErrorMessages.TRIP_ID_NOT_FOUND,
-          HttpStatus.CONFLICT,
-        );
+        throw new HttpException(ErrorMessages.TRIP_ID_NOT_FOUND, HttpStatus.CONFLICT);
       }
-      throw new HttpException(
-        ErrorMessages.UNKNOWN,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException(ErrorMessages.UNKNOWN, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
   async delete(params: deleteTripDto) {
     const trip = await this.prisma.trip.findUnique({ where: { ...params } });
-    if (!trip)
-      throw new HttpException(
-        ErrorMessages.TRIP_ID_NOT_FOUND,
-        HttpStatus.NOT_FOUND,
-      );
+    if (!trip) throw new HttpException(ErrorMessages.TRIP_ID_NOT_FOUND, HttpStatus.NOT_FOUND);
     try {
       if (trip.deletedAt === null)
         return this.prisma.trip.update({
@@ -114,10 +78,7 @@ export class TripService {
         });
       else return this.prisma.trip.delete({ where: { ...params } });
     } catch (err) {
-      throw new HttpException(
-        ErrorMessages.UNKNOWN,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException(ErrorMessages.UNKNOWN, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

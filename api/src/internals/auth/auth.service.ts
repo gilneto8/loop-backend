@@ -10,21 +10,11 @@ const argon2 = require('argon2');
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private accountService: AccountService,
-    private jwtService: JwtService,
-  ) {}
+  constructor(private accountService: AccountService, private jwtService: JwtService) {}
 
-  async validateAccount(
-    email: string,
-    password: string,
-  ): Promise<getAccountDto | null> {
+  async validateAccount(email: string, password: string): Promise<getAccountDto | null> {
     const account = await this.accountService.validate(email);
-    if (!account)
-      throw new HttpException(
-        ErrorMessages.WRONG_CREDENTIALS,
-        HttpStatus.UNAUTHORIZED,
-      );
+    if (!account) throw new HttpException(ErrorMessages.WRONG_CREDENTIALS, HttpStatus.UNAUTHORIZED);
     try {
       if (await argon2.verify(account.password, password)) {
         // don't set password inside `user` field
@@ -32,10 +22,7 @@ export class AuthService {
         return result;
       }
     } catch (err) {
-      new HttpException(
-        ErrorMessages.WRONG_CREDENTIALS,
-        HttpStatus.UNAUTHORIZED,
-      );
+      new HttpException(ErrorMessages.WRONG_CREDENTIALS, HttpStatus.UNAUTHORIZED);
     }
     return null;
   }
@@ -53,15 +40,9 @@ export class AuthService {
       });
     } catch (err) {
       if (err?.code === PostgresErrorCodes.UniqueViolation) {
-        throw new HttpException(
-          ErrorMessages.EMAIL_ALREADY_EXISTS,
-          HttpStatus.CONFLICT,
-        );
+        throw new HttpException(ErrorMessages.EMAIL_ALREADY_EXISTS, HttpStatus.CONFLICT);
       }
-      throw new HttpException(
-        ErrorMessages.UNKNOWN,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException(ErrorMessages.UNKNOWN, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

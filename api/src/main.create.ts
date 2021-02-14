@@ -7,10 +7,7 @@ import { ValidationPipe } from '@nestjs/common';
 export async function createApp() {
   const app = await NestFactory.create(AppModule);
 
-  const config = new DocumentBuilder()
-    .setTitle('Loop API')
-    .setVersion('1.0')
-    .build();
+  const config = new DocumentBuilder().setTitle('Loop API').setVersion('1.0').build();
   const document = SwaggerModule.createDocument(app, config, {});
 
   SwaggerModule.setup('api-docs', app, document);
@@ -18,8 +15,7 @@ export async function createApp() {
   app.enableShutdownHooks();
   app.use(
     helmet({
-      contentSecurityPolicy:
-        process.env.NODE_ENV === 'production' ? undefined : false,
+      contentSecurityPolicy: process.env.NODE_ENV === 'production' ? undefined : false,
     }),
   );
   app.enableCors();

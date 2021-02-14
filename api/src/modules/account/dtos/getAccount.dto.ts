@@ -1,7 +1,4 @@
-import {
-  NexusGenObjects,
-  NexusGenScalars,
-} from '../../../internals/nexus/__generated/nexus-typegen';
+import { NexusGenObjects, NexusGenScalars } from '../../../internals/nexus/__generated/nexus-typegen';
 
 type TAccount = NexusGenObjects['Account'];
 

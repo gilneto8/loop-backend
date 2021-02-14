@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Delete,
-  Param,
-  ParseIntPipe,
-  Post,
-  Put,
-  Request,
-} from '@nestjs/common';
+import { Controller, Delete, Param, ParseIntPipe, Post, Put, Request } from '@nestjs/common';
 import { WaypointService } from './waypoint.service';
 import createWaypointDto from './dtos/createWaypoint.dto';
 import updateWaypointDto from './dtos/updateWaypoint.dto';
@@ -22,17 +14,12 @@ export class WaypointController {
   }
 
   @Put(':id')
-  async updateWaypoint(
-    @Param('id', new ParseIntPipe()) id: getWaypointDto['id'],
-    @Request() req: { body: updateWaypointDto },
-  ) {
+  async updateWaypoint(@Param('id', new ParseIntPipe()) id: getWaypointDto['id'], @Request() req: { body: updateWaypointDto }) {
     return this.waypointService.update(id, req.body);
   }
 
   @Delete(':id')
-  async deleteWaypoint(
-    @Param('id', new ParseIntPipe()) id: getWaypointDto['id'],
-  ) {
+  async deleteWaypoint(@Param('id', new ParseIntPipe()) id: getWaypointDto['id']) {
     return this.waypointService.delete({ id });
   }
 }
