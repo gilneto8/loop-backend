@@ -6,10 +6,11 @@ import {
   OnApplicationShutdown,
 } from '@nestjs/common';
 import { GLOBAL_PROVIDERS } from './app.providers';
+import modules from './modules';
 import { HTTPLogger } from './internals/middlewares/http-logger';
 
 @Module({
-  imports: [],
+  imports: [...modules],
   controllers: [],
   providers: [...GLOBAL_PROVIDERS],
 })

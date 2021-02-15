@@ -4,19 +4,21 @@ import { JSONData } from './json-types';
 const axios = require('axios').default;
 
 type HttpResponseType = {
-  get: JSONData;
-  update: JSONData;
-  delete: JSONData;
-  create: JSONData;
+  [name: string]: JSONData;
 };
 
-class ApiAdapter<T extends HttpResponseType> {
-  url: string;
+export default class ApiAdapter {
   api: AxiosInstance;
 
-  constructor(url: string, headers?: { [name: string]: string }) {
-    this.url = url;
+  constructor(
+    url = process.env.API_URL as string,
+    headers?: { [name: string]: string },
+  ) {
     this.api = axios.create({ baseURL: url, headers: headers || {} });
+  }
+
+  url(url: string): void {
+    this.api.defaults.baseURL = url;
   }
 
   setJwt(token: string): void {
@@ -26,9 +28,9 @@ class ApiAdapter<T extends HttpResponseType> {
   async get(
     uri: string,
     headers?: { [name: string]: string },
-  ): Promise<AxiosResponse<T['get']>> {
+  ): Promise<AxiosResponse<HttpResponseType>> {
     try {
-      return await this.api.get<T['get']>(uri, headers);
+      return await this.api.get<HttpResponseType>(uri, headers);
     } catch (error) {
       return error;
     }
@@ -36,11 +38,11 @@ class ApiAdapter<T extends HttpResponseType> {
 
   async post(
     uri: string,
-    data: T['create'],
+    data: HttpResponseType,
     headers?: { [name: string]: string },
-  ): Promise<AxiosResponse<T['create']>> {
+  ): Promise<AxiosResponse<HttpResponseType>> {
     try {
-      return await this.api.post<T['create']>(uri, data, headers);
+      return await this.api.post<HttpResponseType>(uri, data, headers);
     } catch (error) {
       return error;
     }
@@ -48,11 +50,11 @@ class ApiAdapter<T extends HttpResponseType> {
 
   async put(
     uri: string,
-    data: T['update'],
+    data: HttpResponseType,
     headers?: { [name: string]: string },
-  ): Promise<AxiosResponse<T['update']>> {
+  ): Promise<AxiosResponse<HttpResponseType>> {
     try {
-      return await this.api.put<T['update']>(uri, data, headers);
+      return await this.api.put<HttpResponseType>(uri, data, headers);
     } catch (error) {
       return error;
     }
@@ -60,21 +62,16 @@ class ApiAdapter<T extends HttpResponseType> {
 
   async delete(
     uri: string,
-    data: T['delete'],
+    data: HttpResponseType,
     headers?: { [name: string]: string },
-  ): Promise<T['delete']> {
+  ): Promise<HttpResponseType> {
     try {
-      return await this.api.delete<T['delete'], T['delete']>(uri, headers);
+      return await this.api.delete<HttpResponseType, HttpResponseType>(
+        uri,
+        headers,
+      );
     } catch (error) {
       return error;
     }
   }
-}
-
-let api: ApiAdapter<any>;
-export default function getInstance<HRT extends HttpResponseType>(
-  url = process.env.API_URL as string,
-) {
-  if (!api || api.url !== url) api = new ApiAdapter<HRT>(url);
-  return api;
 }
