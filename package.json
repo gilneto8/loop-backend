@@ -11,7 +11,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \\\"../src/**/*.ts\\\" \\\"test/**/*.ts\\\"",
     "start": "export NODE_ENV=development && nest start",
     "start:dev": "export NODE_ENV=development && nest build --webpack --webpackPath webpack-hmr.config.js --path tsconfig.json",
     "start:debug": "export NODE_ENV=development && nest build --webpack --webpackPath webpack-hmr.debug.config.js --path tsconfig.json",

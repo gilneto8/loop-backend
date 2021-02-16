@@ -9,8 +9,8 @@ import {
 } from '@nestjs/common';
 import { PathService } from './path.service';
 import createPathDto from './dtos/createPath.dto';
-import getPathDto from '../path/dtos/getPath.dto';
-import updatePathDto from '../path/dtos/updatePath.dto';
+import getPathDto from './dtos/getPath.dto';
+import updatePathDto from './dtos/updatePath.dto';
 
 @Controller('paths')
 export class PathController {

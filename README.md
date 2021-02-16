@@ -1,6 +1,4 @@
-# Loop
-
-## Backend
+# Loop Backend
 
 ### Installation
 
@@ -46,11 +44,4 @@ $ npx prisma generate --schema=src/internals/prisma/schema.prisma --preview-feat
 # get db up to date
 $ npx prisma db push --schema=src/internals/prisma/schema.prisma --preview-feature
 
-```
-
-## Database
-
-```bash
-# start all nodes
-$ docker-compose up
 ```
